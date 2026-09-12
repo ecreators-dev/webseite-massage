@@ -55,6 +55,54 @@ a:hover { color: var(--color-gold-light); }
 
 /*
 ========================================
+   BROWSER SURFACES
+   Selection, caret, scrollbars and focus
+   ship with defaults that belong to no
+   design system — theme them from the
+   palette so they read as part of the site.
+========================================
+*/
+::selection { background: var(--color-gold); color: var(--color-primary-dark); }
+
+:root {
+    caret-color: var(--color-gold);
+    accent-color: var(--color-gold);
+    scrollbar-color: rgba(217,176,95,0.45) transparent;
+    scrollbar-width: thin;
+}
+
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+    background: rgba(217,176,95,0.35);
+    border-radius: 999px;
+    border: 3px solid transparent;
+    background-clip: content-box;
+}
+::-webkit-scrollbar-thumb:hover { background: rgba(217,176,95,0.6); background-clip: content-box; }
+
+/* One focus ring for every interactive element, gold on dark with a dark
+   spacer so it stays visible on gold surfaces too. */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+[tabindex]:focus-visible {
+    outline: 2px solid var(--color-gold-light);
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+/* Headings wrap on meaning rather than on the last word falling alone. */
+h1, h2, h3 { text-wrap: balance; }
+
+/* Figures read as quantities, so their digits share one width. */
+.leistung-price, .calendar-day, .duration-chip, .summary-price,
+.phone-pill, .mobile-phone, .time-slot { font-variant-numeric: tabular-nums; }
+
+/*
+========================================
    SHARED CONTENT BITS
 ========================================
 */
@@ -113,8 +161,10 @@ a:hover { color: var(--color-gold-light); }
     color: var(--color-gold);
     text-decoration: underline;
     text-underline-offset: 3px;
-    display: inline-block;
-    padding: 6px 4px; /* touch target */
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px; /* touch target */
+    padding: 0 4px;
 }
 .panel-footer .copyright { margin-left: 12px; }
 
@@ -131,8 +181,6 @@ a:hover { color: var(--color-gold-light); }
 .fade-in { animation: fadeIn 1s ease-out forwards; }
 @keyframes fadeIn { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
 
-.slide-up { animation: slideUp 1s ease-out forwards; }
-@keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
 /*
 ========================================
@@ -190,9 +238,9 @@ a:hover { color: var(--color-gold-light); }
 }
 /*
 ========================================
-   INNER PAGES (booking, about): normal
-   scrolling document, not the one-screen
-   flyer layout used by index.html.
+   INNER PAGES (booking, about, leistungen):
+   normal scrolling document, not the
+   one-screen flyer layout used previously.
 ========================================
 */
 body.inner-page {
@@ -237,8 +285,8 @@ body.inner-page {
 .site-logo-text small {
     font-family: var(--font-body);
     color: var(--color-text-light);
-    font-size: 0.55rem;
-    letter-spacing: 0.15em;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
     opacity: 0.85;
 }
 .site-nav {
@@ -403,7 +451,7 @@ body.inner-page {
 .booking-card h2 {
     font-family: var(--font-body);
     font-weight: 700;
-    font-size: 1.15rem;
+    font-size: 1.2rem;
     display: flex;
     align-items: center;
     gap: 10px;
@@ -427,14 +475,20 @@ body.inner-page {
    SERVICE OPTIONS (step 1)
 ========================================
 */
+/* The list scrolls, so the last visible card must not look chopped: fade the
+   final rows out to signal there is more below. */
 .service-list-booking {
     display: flex;
     flex-direction: column;
     gap: 0.7rem;
     max-height: 460px;
     overflow-y: auto;
-    padding-right: 4px;
+    padding-right: 6px;
+    scroll-behavior: smooth;
+    -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 2.5rem), transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 calc(100% - 2.5rem), transparent 100%);
 }
+.service-list-booking:not(:hover)::-webkit-scrollbar-thumb { background: rgba(217,176,95,0.22); background-clip: content-box; }
 .service-option { display: block; cursor: pointer; }
 .service-option input { position: absolute; opacity: 0; width: 1px; height: 1px; }
 .service-option-body {
@@ -449,7 +503,7 @@ body.inner-page {
     box-shadow: 0 0 0 1px var(--color-gold) inset;
 }
 .service-option input:focus-visible + .service-option-body { outline: 2px solid var(--color-gold-light); }
-.service-option-body h3 { font-size: 1rem; font-weight: 700; margin-bottom: 2px; }
+.service-option-body h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 2px; }
 .service-option-body p { font-size: 0.85rem; opacity: 0.8; margin-bottom: 0.5rem; }
 .duration-chips { display: flex; flex-wrap: wrap; gap: 6px; }
 .duration-chip {
@@ -512,6 +566,18 @@ body.inner-page {
 .calendar-day.today { border: 1px solid rgba(217,176,95,0.5); }
 .calendar-day.selected { background: var(--color-gold); color: var(--color-primary-dark); font-weight: 700; }
 .calendar-day.empty { visibility: hidden; }
+
+/* Shown until a date is picked, so the card is never simply blank. */
+.slots-empty {
+    margin-top: 1.2rem;
+    padding: 0.9rem 1rem;
+    border: 1px dashed rgba(217,176,95,0.28);
+    border-radius: 10px;
+    font-size: 0.85rem;
+    color: rgba(242,236,220,0.72);
+    text-align: center;
+    line-height: 1.5;
+}
 
 .time-slots-wrap { margin-top: 1.2rem; }
 .time-slots {
@@ -581,7 +647,14 @@ body.inner-page {
     resize: vertical;
 }
 .form-field input::placeholder, .form-field textarea::placeholder { color: rgba(242,236,220,0.5); }
+/* The ring belongs on the bordered wrapper, not the borderless input inside it. */
+.form-field { transition: border-color 0.2s ease, box-shadow 0.2s ease; }
+.form-field:focus-within {
+    border-color: var(--color-gold);
+    box-shadow: 0 0 0 3px rgba(217,176,95,0.18);
+}
 .form-field input:focus, .form-field textarea:focus { outline: none; }
+.form-field input:focus-visible, .form-field textarea:focus-visible { outline: none; }
 .form-field-textarea { align-items: flex-start; padding-top: 10px; }
 .form-field-textarea svg { margin-top: 2px; }
 
@@ -601,7 +674,14 @@ body.inner-page {
     cursor: pointer;
     margin-top: 0.4rem;
 }
-.btn-book:hover { filter: brightness(1.05); }
+.btn-book { transition: filter 0.2s ease, transform 0.12s ease, box-shadow 0.2s ease; }
+.btn-book:hover { filter: brightness(1.05); box-shadow: 0 6px 18px rgba(0,0,0,0.28); }
+.btn-book:active { transform: translateY(1px); filter: brightness(0.98); box-shadow: 0 2px 8px rgba(0,0,0,0.24); }
+.calendar-nav:active, .time-slot:active, .mobile-menu-toggle:active { transform: translateY(1px); }
+.calendar-day:not(:disabled):hover { background: rgba(217,176,95,0.16); }
+.calendar-day { transition: background 0.18s ease; }
+.time-slot { transition: border-color 0.18s ease, background 0.18s ease; }
+.calendar-nav { transition: background 0.18s ease; }
 .btn-secondary {
     background: none;
     border: 1px solid var(--color-gold);
@@ -700,6 +780,9 @@ body.inner-page {
 .about-lotus { width: 60px; margin-bottom: 0.5rem; mix-blend-mode: screen; }
 .about-title { margin-top: 0; }
 .about-lead { font-size: 1.1rem; color: var(--color-gold-light); font-style: italic; margin-bottom: 1rem; }
+/* ~72 characters per line. The ch unit measures "0", which is wider than the
+   average letter, so the value sits below the character count it targets. */
+.about-wrap p { max-width: 57ch; }
 .about-script { text-align: left; margin-top: 1.5rem; white-space: normal; }
 .about-cta {
     display: flex;
@@ -744,9 +827,11 @@ body.inner-page {
 /*
 ========================================
    LANDING PAGE (index.html)
-   Hero follows design/mockup-landing-v2.png:
-   photo with baked-in green curve, text in
-   the green area on the left.
+   Hero: split background — left a flat,
+   textured surface panel; right the person
+   photo. Both halves fade in independently
+   on load, in the site's established
+   fade-in movement style (slide + opacity).
 ========================================
 */
 .hero {
@@ -758,13 +843,56 @@ body.inner-page {
     overflow: hidden;
     background: var(--color-primary-dark);
 }
-.hero-bg {
+.hero-bg-split {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    display: flex;
+}
+.hero-bg-left {
+    width: 46%;
+    height: 100%;
+    background:
+        linear-gradient(160deg, rgba(10,69,48,0.55), rgba(5,44,32,0.92)),
+        url('../images/backgrounds/bg-green-texture.webp');
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    animation: heroFadeInLeft 1.1s ease-out 0.15s forwards;
+}
+.hero-bg-right {
+    width: 54%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    animation: heroFadeInRight 1.1s ease-out 0.35s forwards;
+}
+.hero-bg-right img {
     position: absolute;
     inset: 0;
     width: 100%; height: 100%;
     object-fit: cover;
-    object-position: left center; /* keep the green curve area on the left */
-    z-index: 0;
+    object-position: 65% center;
+}
+/* Soft seam so the two halves blend rather than cut sharply */
+.hero-bg-seam {
+    position: absolute;
+    left: 40%;
+    top: 0;
+    width: 16%;
+    height: 100%;
+    background: linear-gradient(90deg, var(--color-primary-dark) 0%, rgba(5,44,32,0) 100%);
+    z-index: 1;
+    pointer-events: none;
+}
+@keyframes heroFadeInLeft {
+    from { opacity: 0; transform: translateX(-24px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+@keyframes heroFadeInRight {
+    from { opacity: 0; transform: translateX(24px); }
+    to { opacity: 1; transform: translateX(0); }
 }
 .hero-header, .hero .nav-mobile { position: relative; z-index: 2; width: 100%; }
 .hero .nav-mobile { background: rgba(5,44,32,0.95); }
@@ -864,19 +992,18 @@ body.inner-page {
 
 .price-grid {
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: 1.2rem;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.4rem;
     text-align: left;
 }
 .price-card {
-    grid-column: span 2;
+    position: relative;
     background: rgba(3,30,21,0.72);
     border: 1px solid rgba(217,176,95,0.4);
     border-radius: 14px;
     padding: 1.4rem 1.4rem 1.5rem;
     transition: transform 0.3s ease, border-color 0.3s ease;
 }
-.price-card:nth-child(4), .price-card:nth-child(5) { grid-column: span 3; }
 .price-card:hover { transform: translateY(-3px); border-color: var(--color-gold); }
 .price-card-head {
     display: flex;
@@ -903,8 +1030,33 @@ body.inner-page {
 }
 .price-card p { font-size: 0.92rem; line-height: 1.55; opacity: 0.88; }
 .price-card-premium { border-color: var(--color-gold); box-shadow: 0 0 0 1px rgba(217,176,95,0.35) inset; }
+.price-tag {
+    position: absolute;
+    top: -12px;
+    right: 1.2rem;
+    font-family: var(--font-body);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--color-primary-dark);
+    background: linear-gradient(90deg, var(--color-gold-light), var(--color-gold));
+    border-radius: 999px;
+    padding: 4px 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
 .section-cta { margin-top: 2.4rem; display: flex; justify-content: center; }
 .section-cta .btn-book { width: auto; padding: 0 2rem; }
+.section-link-all {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 1.8rem;
+    color: var(--color-gold);
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: 8px 4px;
+}
 
 .contact-inner {
     display: grid;
@@ -937,13 +1089,11 @@ body.inner-page {
 /* Tablet & phone: photo on top, text below on green */
 @media (max-width: 900px) {
     .hero { min-height: 0; }
-    .hero-bg {
-        position: relative;
-        order: 2;
-        height: 46vh;
-        min-height: 240px;
-        object-position: 82% center; /* show the massage scene, not the green panel */
-    }
+    .hero-bg-split { position: relative; order: 2; flex-direction: column; height: 46vh; min-height: 240px; }
+    .hero-bg-left { display: none; }
+    .hero-bg-right { width: 100%; height: 100%; }
+    .hero-bg-right img { object-position: 82% center; }
+    .hero-bg-seam { display: none; }
     .hero-header { order: 0; background: var(--color-primary-dark); }
     .hero .nav-mobile { order: 1; }
     .hero-content {
@@ -955,8 +1105,6 @@ body.inner-page {
     }
     .hero-script { display: none; }
     .price-grid { grid-template-columns: 1fr 1fr; }
-    .price-card, .price-card:nth-child(4) { grid-column: span 1; }
-    .price-card:nth-child(5) { grid-column: 1 / -1; }
     .contact-inner { grid-template-columns: 1fr; gap: 1.5rem; }
 }
 @media (max-width: 560px) {
@@ -964,13 +1112,16 @@ body.inner-page {
     .hero-feature-icon { width: 48px; height: 48px; }
     .hero-cta { align-self: stretch; }
     .price-grid { grid-template-columns: 1fr; }
-    .price-card:nth-child(5) { grid-column: auto; }
     .landing-footer-tagline { letter-spacing: 0.15em; }
 }
 /* Phones in landscape: hero photo as slim banner */
 @media (orientation: landscape) and (max-height: 520px) {
     .hero { min-height: 0; }
-    .hero-bg { position: relative; order: 2; height: 55vh; object-position: 82% center; }
+    .hero-bg-split { position: relative; order: 2; flex-direction: row; height: 55vh; }
+    .hero-bg-left { display: none; }
+    .hero-bg-right { width: 100%; }
+    .hero-bg-right img { object-position: 82% center; }
+    .hero-bg-seam { display: none; }
     .hero-header { order: 0; }
     .hero .nav-mobile { order: 1; }
     .hero-content { order: 3; width: 100%; padding: 1.5rem 1.4rem 2rem; }
@@ -978,6 +1129,108 @@ body.inner-page {
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .fade-in, .slide-up { animation: none; }
-    .price-card { transition: none; }
+    .fade-in, .hero-bg-left, .hero-bg-right { animation: none; opacity: 1; }
+    .price-card, .btn-book, .form-field, .calendar-day, .time-slot, .calendar-nav,
+    .leistung-card, .leistung-img { transition: none; }
+    .btn-book:active, .calendar-nav:active, .time-slot:active, .mobile-menu-toggle:active,
+    .leistung-card:hover, .leistung-card:hover .leistung-img { transform: none; }
+    .service-list-booking { scroll-behavior: auto; }
+}
+
+/*
+========================================
+   LEISTUNGEN PAGE (leistungen.html)
+   Full detail list of all services, each
+   with its own gallery-style card. Reuses
+   the inner-page scroll layout.
+========================================
+*/
+.leistungen-hero {
+    text-align: left;
+    margin: 1.5rem 0 2rem;
+}
+.leistungen-hero h1 {
+    font-family: var(--font-heading);
+    color: var(--color-gold);
+    font-size: clamp(1.9rem, 4vw, 2.8rem);
+    letter-spacing: 0.03em;
+    margin-bottom: 0.5rem;
+}
+.leistungen-hero p { font-size: 1.05rem; opacity: 0.9; max-width: 60ch; }
+
+.leistungen-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.6rem;
+    margin-bottom: 2rem;
+}
+.leistung-card {
+    position: relative;
+    background: rgba(0,0,0,0.22);
+    border: 1px solid rgba(217,176,95,0.25);
+    border-radius: 16px;
+    padding: 1.6rem;
+    display: flex;
+    flex-direction: column;
+}
+.leistung-card.featured { border-color: var(--color-gold); box-shadow: 0 0 0 1px rgba(217,176,95,0.3) inset; }
+.leistung-card {
+    transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+}
+.leistung-card:hover {
+    border-color: rgba(217,176,95,0.5);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.28);
+    transform: translateY(-2px);
+}
+.leistung-card.featured:hover { border-color: var(--color-gold-light); }
+
+.leistung-img-frame {
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 1.2rem;
+}
+.leistung-img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    object-position: center 62%;
+    transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.leistung-card:hover .leistung-img { transform: scale(1.03); }
+.leistung-card-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.6rem;
+}
+.leistung-card h2 {
+    font-family: var(--font-heading);
+    color: var(--color-gold-light);
+    font-size: 1.3rem;
+}
+.leistung-price {
+    font-family: var(--font-heading);
+    color: var(--color-primary-dark);
+    background: linear-gradient(90deg, var(--color-gold-light), var(--color-gold));
+    border-radius: 999px;
+    padding: 5px 16px;
+    font-size: 1.05rem;
+    white-space: nowrap;
+    flex: 0 0 auto;
+}
+.leistung-duration {
+    font-size: 0.85rem;
+    color: var(--color-gold);
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    margin-bottom: 0.6rem;
+}
+.leistung-card p { font-size: 0.95rem; line-height: 1.6; opacity: 0.9; flex: 1 1 auto; }
+.leistung-card .btn-book { width: auto; margin-top: 1rem; padding: 0 1.6rem; align-self: flex-start; }
+
+@media (max-width: 760px) {
+    .leistungen-list { grid-template-columns: 1fr; }
 }

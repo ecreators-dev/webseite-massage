@@ -8,14 +8,20 @@
     <meta property="og:title" content="Anna Vietnam Thai Massage – Heilbronn">
     <meta property="og:description" content="Traditionelle vietnamesische & thailändische Wellness – für mehr Balance, neue Energie und innere Ruhe.">
     <meta property="og:image" content="images/hero/hero-massage.webp">
-    <link rel="preload" as="image" href="images/hero/hero-massage-lotus.webp">
+    <link rel="preload" as="image" href="images/hero/hero-massage.webp">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="landing-page">
 
-    <!-- ============ HERO (layout per design/mockup-landing-v2.png) ============ -->
+    <!-- ============ HERO (split background: left flat/textured surface, right person photo — both fade in on load) ============ -->
     <section class="hero">
-        <img src="images/hero/hero-massage-lotus.webp" alt="" class="hero-bg" width="1672" height="941">
+        <div class="hero-bg-split" aria-hidden="true">
+            <div class="hero-bg-left"></div>
+            <div class="hero-bg-right">
+                <img src="images/hero/hero-massage.webp" alt="" width="1672" height="941">
+            </div>
+        </div>
+        <div class="hero-bg-seam" aria-hidden="true"></div>
 
         <!-- ============ SITE HEADER / NAV (shared markup, duplicated per page) ============ -->
         <header class="site-header hero-header">
@@ -26,7 +32,7 @@
 
             <nav class="site-nav">
                 <a href="index.html" class="nav-link active">Startseite</a>
-                <a href="#leistungen" class="nav-link">Unsere Leistungen</a>
+                <a href="leistungen.html" class="nav-link">Unsere Leistungen</a>
                 <a href="termin-buchen.html" class="nav-link">Termin buchen</a>
                 <a href="ueber-uns.html" class="nav-link">Über uns</a>
                 <a href="#kontakt" class="nav-link">Kontakt</a>
@@ -44,7 +50,7 @@
 
         <nav class="nav-mobile">
             <a href="index.html" class="mobile-link">Startseite</a>
-            <a href="#leistungen" class="mobile-link">Unsere Leistungen</a>
+            <a href="leistungen.html" class="mobile-link">Unsere Leistungen</a>
             <a href="termin-buchen.html" class="mobile-link">Termin buchen</a>
             <a href="ueber-uns.html" class="mobile-link">Über uns</a>
             <a href="#kontakt" class="mobile-link">Kontakt</a>
@@ -80,24 +86,15 @@
     </section>
 
     <main>
-        <!-- ============ LEISTUNGEN & PREISE ============ -->
+        <!-- ============ LEISTUNGEN (3 ausgewählte, Link zur vollständigen Übersicht) ============ -->
         <section class="landing-section services-section" id="leistungen" aria-labelledby="leistungen-title">
             <div class="section-inner">
                 <p class="section-eyebrow">Wohlfühlmomente für Körper, Geist und Seele</p>
                 <h2 class="section-title" id="leistungen-title">Unsere Leistungen</h2>
 
                 <div class="price-grid">
-                    <article class="price-card">
-                        <div class="price-card-head"><span>30 Minuten</span><strong>30&nbsp;€</strong></div>
-                        <h3>Kopf-, Nacken- &amp; Schultermassage</h3>
-                        <p>Sanfte Massage für Kopf, Nacken und Schultern. Löst Verspannungen und bringt neue Energie.</p>
-                    </article>
-                    <article class="price-card">
-                        <div class="price-card-head"><span>45 Minuten</span><strong>45&nbsp;€</strong></div>
-                        <h3>Rückenmassage</h3>
-                        <p>Intensive Massage für Rücken, Nacken und Schultern. Löst Blockaden und sorgt für spürbare Entlastung.</p>
-                    </article>
-                    <article class="price-card">
+                    <article class="price-card price-card-premium">
+                        <span class="price-tag">Meist gewählt</span>
                         <div class="price-card-head"><span>60 Minuten</span><strong>60&nbsp;€</strong></div>
                         <h3>Traditionelle Thai-Massage</h3>
                         <p>Ganzkörpermassage mit Druck- und Dehntechniken. Fördert die Energieflüsse und bringt Körper und Geist in Einklang.</p>
@@ -108,15 +105,14 @@
                         <p>Sanfte, fließende Massage mit hochwertigen, natürlichen Ölen. Löst Spannungen, beruhigt den Geist und schenkt tiefe Entspannung.</p>
                     </article>
                     <article class="price-card price-card-premium">
+                        <span class="price-tag">Empfohlen</span>
                         <div class="price-card-head"><span>120 Minuten</span><strong>120&nbsp;€</strong></div>
                         <h3>Premium Wellness-Massage</h3>
-                        <p>Individuelle Kombination aus Thai-Massage, Aromaöl, Hot Stone und erfrischendem Kopf-Spa mit Wasser – ein ganzheitliches Erlebnis für Körper, Geist und Seele.</p>
+                        <p>Individuelle Kombination aus Thai-Massage, Aromaöl und erfrischendem Kopf-Spa mit Wasser – ein ganzheitliches Erlebnis für Körper, Geist und Seele.</p>
                     </article>
                 </div>
 
-                <div class="section-cta">
-                    <a href="termin-buchen.html" class="btn-book">Termin online buchen <span aria-hidden="true">&rarr;</span></a>
-                </div>
+                <a href="leistungen.html" class="section-link-all">Alle Leistungen ansehen <span aria-hidden="true">&rarr;</span></a>
             </div>
         </section>
 

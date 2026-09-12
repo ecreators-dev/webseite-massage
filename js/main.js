@@ -218,12 +218,16 @@ function initBookingAssistant() {
         }
     }
 
+    const slotsEmpty = document.getElementById('slots-empty');
+
     function renderTimeSlots() {
         if (!state.selectedDate) {
             slotsWrap.hidden = true;
+            if (slotsEmpty) slotsEmpty.hidden = false;
             return;
         }
         slotsWrap.hidden = false;
+        if (slotsEmpty) slotsEmpty.hidden = true;
         slotsEl.innerHTML = '';
 
         const label = document.getElementById('time-slots-label');
