@@ -1,2 +1,18 @@
 .DS_Store
 Thumbs.db
+
+# Interne Arbeitsunterlagen - enthalten Zugangsdaten und Kundendaten.
+# Dieses Repository ist oeffentlich: nichts hiervon darf eingecheckt werden.
+Brain/
+Claude outputs/
+annas webseite/
+tutorial/
+
+# Lokale Werkzeug-Konfiguration und Arbeitskopien
+.claude/
+
+# Unsortierte Arbeitsdateien
+regex_beispiel_anja.java
+images/ChatGPT Image *
+images/WhatsApp Image *
+images/Screenshot *
