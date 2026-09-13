@@ -1128,3 +1128,179 @@ body.inner-page {
 @media (max-width: 760px) {
     .leistungen-list { grid-template-columns: 1fr; }
 }
+.leistungen-disclaimer { margin-bottom: 2rem; }
+
+/*
+========================================
+   BILDSCHIRM FUELLEN (Desktop, quer & hoch)
+   Auf breiten Bildschirmen ist jede Unterseite genau so hoch wie das
+   Fenster: Kopfzeile oben, Footer unten, der Inhalt teilt sich die
+   Hoehe dazwischen. Abstaende und Schriftgrade haengen an vh, damit
+   dieselbe Seite auf 768 wie auf 1440 Pixel Hoehe aufgeht; Bilder
+   nehmen den verbleibenden Raum statt einer festen Proportion.
+   Unter 600px Hoehe oder schmaler als 901px wird wie bisher gescrollt -
+   dort liesse sich der Inhalt nur unleserlich klein zusammenpressen.
+========================================
+*/
+@media (min-width: 901px) and (min-height: 600px) {
+
+    /* --- Grundgeruest der Unterseiten --- */
+    body.inner-page {
+        height: 100dvh;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+    }
+    body.inner-page > .site-header {
+        flex: 0 0 auto;
+        width: 100%;
+        padding-block: clamp(0.35rem, 1.2vh, 1rem);
+    }
+    .site-logo-img { height: clamp(50px, 8vh, 76px); }
+    body.inner-page > main.page-wrap {
+        flex: 1 1 auto;
+        min-height: 0;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        /* Sicherheitsnetz: passt es bei extremen Formaten doch nicht,
+           scrollt nur der Inhalt, Kopfzeile bleibt stehen. */
+        overflow-y: auto;
+        padding-bottom: clamp(0.3rem, 1vh, 0.9rem);
+    }
+    .inner-footer { flex: 0 0 auto; margin-top: auto; }
+    .panel-footer .legal-link { min-height: 32px; }
+
+    /* --- Leistungen --- */
+    .leistungen-hero { flex: 0 0 auto; margin: clamp(0.1rem, 0.8vh, 1rem) 0 clamp(0.5rem, 1.8vh, 1.6rem); }
+    .leistungen-hero h1 { font-size: clamp(1.6rem, 4.2vh, 2.8rem); margin-bottom: 0.25rem; }
+    .leistungen-hero p { font-size: clamp(0.86rem, 1.85vh, 1.05rem); }
+    .leistungen-list {
+        flex: 1 1 auto;
+        min-height: 0;
+        grid-auto-rows: minmax(0, 1fr);
+        gap: clamp(0.7rem, 2vh, 1.6rem);
+        margin-bottom: clamp(0.3rem, 1vh, 0.8rem);
+    }
+    .leistung-card { min-height: 0; padding: clamp(0.65rem, 1.7vh, 1.6rem); }
+    .leistung-img-frame { flex: 1 1 auto; min-height: 56px; margin-bottom: clamp(0.35rem, 1.1vh, 1rem); }
+    .leistung-img { height: 100%; aspect-ratio: auto; }
+    .leistung-time { font-size: clamp(1rem, 2.6vh, 1.35rem); }
+    .leistung-card-head { margin-bottom: 0.2rem; }
+    .leistung-card h2 { font-size: clamp(1rem, 2.3vh, 1.3rem); }
+    .leistung-price { font-size: clamp(0.88rem, 2vh, 1.05rem); padding: 2px 12px; }
+    .leistung-card p {
+        flex: 0 0 auto;
+        -webkit-line-clamp: 2;
+        font-size: clamp(0.8rem, 1.75vh, 0.95rem);
+        line-height: 1.5;
+    }
+    .leistung-card .btn-book { margin-top: clamp(0.35rem, 1.1vh, 1rem); min-height: clamp(36px, 5vh, 48px); }
+    .leistungen-disclaimer { flex: 0 0 auto; margin: 0 0 0.2rem; }
+
+    /* --- Termin buchen --- */
+    .booking-page > .booking-layout,
+    .booking-main { flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; }
+    .booking-hero {
+        flex: 0 1 auto;
+        min-height: clamp(120px, 22vh, 250px);
+        margin: clamp(0.1rem, 0.8vh, 1.5rem) 0 clamp(0.5rem, 1.8vh, 1.8rem);
+        padding-block: clamp(0.9rem, 3vh, 2.8rem);
+    }
+    .booking-hero h1 { font-size: clamp(1.6rem, 4.2vh, 2.8rem); }
+    .booking-hero p { font-size: clamp(0.86rem, 1.85vh, 1.05rem); }
+    .booking-hero-lotus { width: clamp(36px, 6vh, 62px); }
+    .handover {
+        flex: 1 1 auto;
+        min-height: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin: 0 auto;
+    }
+    .handover h2 { font-size: clamp(1.15rem, 3.2vh, 2rem); margin-bottom: 0.35rem; }
+    .handover-lead { font-size: clamp(0.86rem, 1.85vh, 1.05rem); }
+    .handover-points { margin-block: clamp(0.45rem, 1.7vh, 1.5rem); align-self: center; }
+    .handover-points li { margin-bottom: clamp(0.1rem, 0.6vh, 0.55rem); font-size: clamp(0.84rem, 1.8vh, 0.98rem); }
+    .handover .btn-book { min-height: clamp(38px, 5.2vh, 48px); align-self: center; }
+    .handover-note { margin-top: 0.35rem; }
+    .handover-alt { margin-top: clamp(0.5rem, 2vh, 2.5rem); padding-top: clamp(0.45rem, 1.6vh, 1.8rem); display: flex; flex-direction: column; align-items: center; }
+    .handover-alt p { margin-bottom: 0.45rem; }
+    .booking-main .feature-strip {
+        flex: 0 0 auto;
+        margin: clamp(0.35rem, 1.4vh, 2.2rem) 0 clamp(0.1rem, 0.6vh, 1.5rem);
+        padding-top: clamp(0.35rem, 1.4vh, 1.5rem);
+    }
+
+    /* --- Ueber uns: Text in zwei Spalten statt einer langen --- */
+    .about-page .about-wrap {
+        flex: 1 1 auto;
+        min-height: 0;
+        width: 100%;
+        max-width: 1180px;
+        padding: clamp(0.3rem, 1.3vh, 2rem) 1.25rem clamp(0.3rem, 1vh, 1rem);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .about-lotus { width: clamp(38px, 6vh, 60px); margin-bottom: 0.2rem; }
+    .about-page .legal-title { font-size: clamp(1.5rem, 4vh, 2.2rem); margin: 0 0 clamp(0.4rem, 1.6vh, 1.5rem); }
+    .about-page .about-wrap > section:not(.about-cta) {
+        columns: 2;
+        column-gap: clamp(2rem, 4vw, 4.5rem);
+    }
+    .about-page .about-wrap p { max-width: none; font-size: clamp(0.86rem, 1.85vh, 1rem); break-inside: avoid; }
+    .about-page .about-lead { font-size: clamp(0.95rem, 2vh, 1.1rem); }
+    .about-page .about-wrap h2 {
+        font-size: clamp(1.05rem, 2.6vh, 1.5rem);
+        margin: clamp(0.5rem, 1.8vh, 2rem) 0 clamp(0.3rem, 0.9vh, 0.8rem);
+        break-after: avoid;
+    }
+    .about-script { margin-top: clamp(0.5rem, 1.5vh, 1.5rem); }
+    .about-cta { margin-top: clamp(0.6rem, 2.2vh, 2rem); }
+    .about-cta .btn-book { min-height: clamp(38px, 5.2vh, 48px); }
+
+    /* --- Rechtliches: Impressum und Datenschutz nebeneinander. Reicht
+       die Hoehe, steht alles da; sonst scrollt jede Spalte fuer sich,
+       Titel und Footer bleiben stehen. --- */
+    body.legal-page { height: 100dvh; overflow: hidden; }
+    .legal-page .legal-wrap {
+        height: 100dvh;
+        max-width: 1240px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto auto minmax(0, 1fr) auto;
+        column-gap: clamp(2rem, 4vw, 4.5rem);
+        padding: clamp(0.5rem, 2vh, 2rem) 1.5rem clamp(0.4rem, 1.2vh, 1rem);
+    }
+    .legal-page .legal-wrap > .back-link:first-child { grid-column: 1 / -1; justify-self: start; }
+    .legal-page .legal-title {
+        grid-column: 1 / -1;
+        font-size: clamp(1.4rem, 3.6vh, 2.2rem);
+        margin: clamp(0.1rem, 0.8vh, 1rem) 0 clamp(0.4rem, 1.5vh, 1.5rem);
+    }
+    .legal-page .legal-wrap > section { min-height: 0; overflow-y: auto; padding-right: 0.9rem; }
+    .legal-page .legal-wrap h2 { margin-top: 0; font-size: clamp(1.1rem, 2.6vh, 1.5rem); }
+    .legal-page .legal-wrap h3 { font-size: clamp(0.9rem, 1.9vh, 1.05rem); margin: clamp(0.5rem, 1.3vh, 1.1rem) 0 0.2rem; }
+    .legal-page .legal-wrap p { font-size: clamp(0.82rem, 1.75vh, 1rem); line-height: 1.5; }
+    .legal-page .legal-footer {
+        grid-column: 1 / -1;
+        margin-top: clamp(0.4rem, 1.2vh, 2.5rem);
+        padding-top: clamp(0.3rem, 0.9vh, 1rem);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    /* --- Hochformat (z. B. gedrehter Monitor): weniger Spalten,
+       dafuer mehr Hoehe je Element. --- */
+    @media (orientation: portrait) {
+        .leistungen-list { grid-template-columns: repeat(2, 1fr); }
+        .about-page .about-wrap > section:not(.about-cta) { columns: 1; }
+        .legal-page .legal-wrap {
+            grid-template-columns: 1fr;
+            grid-template-rows: auto auto minmax(0, 1fr) minmax(0, 1fr) auto;
+        }
+        .legal-page .legal-wrap > section + section { margin-top: clamp(0.6rem, 1.8vh, 1.5rem); }
+    }
+}
