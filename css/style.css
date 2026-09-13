@@ -690,6 +690,8 @@ body.inner-page {
     flex-wrap: wrap;
 }
 .about-cta .btn-book { width: auto; padding: 0 1.6rem; text-decoration: none; }
+/* .legal-wrap a faerbt Links gold - der goldene Buchen-Button braucht dunkle Schrift */
+.about-cta .btn-book:not(.btn-secondary):not(.btn-green) { color: var(--color-primary-dark); }
 
 /*
 ========================================
