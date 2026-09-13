@@ -50,6 +50,119 @@ document.addEventListener('DOMContentLoaded', () => {
         appearOnScroll.observe(fader);
     });
 
+    // --- Startseite: Massagen-Ticker ---
+    // Desktop: Karte in der Mitte wird hervorgehoben, wartet 2 s, dann
+    // gleitet die Reihe eine Karte nach links. Endlos durch Klone vor und
+    // hinter den Originalen; nach dem Gleiten wird unsichtbar auf die
+    // mittlere Kopie zurueckgesetzt. Klick: anhalten + Beschreibung,
+    // erneuter Klick im Ticker: weiter. Mobil nur Wischen + Klick.
+    const ticker = document.querySelector('.hero-ticker');
+    const track = ticker && ticker.querySelector('.ticker-track');
+    const viewport = ticker && ticker.querySelector('.ticker-viewport');
+    const desc = ticker && ticker.querySelector('.ticker-desc');
+    if (ticker && track && viewport && desc) {
+        const desktopQ = window.matchMedia('(min-width: 901px) and (min-height: 651px)');
+        const reducedQ = window.matchMedia('(prefers-reduced-motion: reduce)');
+        const originals = [...track.children];
+        const n = originals.length;
+        const clone = (li) => {
+            const c = li.cloneNode(true);
+            c.setAttribute('aria-hidden', 'true');
+            c.querySelector('.ticker-hit').tabIndex = -1;
+            return c;
+        };
+        originals.forEach(li => track.appendChild(clone(li)));
+        originals.slice().reverse().forEach(li => track.insertBefore(clone(li), track.firstChild));
+        const cards = [...track.children];   // 3 Saetze: Klone, Originale, Klone
+
+        let index = n;        // Karte, die in der Mitte steht
+        let openCard = null;
+        let loopTimer = null;
+
+        const place = (animate) => {
+            const card = cards[index];
+            const x = viewport.clientWidth / 2 - (card.offsetLeft - cards[0].offsetLeft + card.offsetWidth / 2);
+            track.style.transition = animate ? 'transform 0.8s cubic-bezier(0.45, 0, 0.25, 1)' : 'none';
+            track.style.transform = `translateX(${x}px)`;
+            cards.forEach((c, k) => c.classList.toggle('is-center', k === index));
+        };
+        // Nach dem Gleiten ohne sichtbaren Sprung auf den mittleren Satz zurueck
+        const normalize = () => {
+            if (index >= n && index < 2 * n) return;
+            index = ((index % n) + n) % n + n;
+            track.classList.add('no-anim');
+            place(false);
+            void track.offsetWidth;
+            track.classList.remove('no-anim');
+        };
+        const running = () => desktopQ.matches && !reducedQ.matches && !openCard && !document.hidden;
+        const schedule = () => {
+            clearTimeout(loopTimer);
+            if (!running()) return;
+            loopTimer = setTimeout(() => {
+                index++;
+                place(true);
+                loopTimer = setTimeout(() => { normalize(); schedule(); }, 850);
+            }, 2000);
+        };
+
+        const openDesc = (card) => {
+            const src = originals[cards.indexOf(card) % n];
+            desc.textContent = '';
+            const title = document.createElement('strong');
+            title.textContent = src.dataset.title;
+            desc.append(title, src.dataset.desc);
+            desc.hidden = false;
+            card.querySelector('.ticker-hit').setAttribute('aria-expanded', 'true');
+            openCard = card;
+            clearTimeout(loopTimer);
+        };
+        const closeDesc = () => {
+            desc.hidden = true;
+            if (openCard) openCard.querySelector('.ticker-hit').setAttribute('aria-expanded', 'false');
+            openCard = null;
+            if (desktopQ.matches) { normalize(); schedule(); }
+        };
+
+        track.addEventListener('click', (e) => {
+            const card = e.target.closest('.ticker-card');
+            if (!card) return;
+            if (openCard) { closeDesc(); return; }
+            if (desktopQ.matches) {
+                clearTimeout(loopTimer);
+                index = cards.indexOf(card);
+                place(true);
+            }
+            openDesc(card);
+        });
+        ticker.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && openCard) closeDesc();
+            if (!desktopQ.matches || openCard) return;
+            if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+                e.preventDefault();
+                clearTimeout(loopTimer);
+                index += e.key === 'ArrowRight' ? 1 : -1;
+                place(true);
+                loopTimer = setTimeout(() => { normalize(); schedule(); }, 850);
+            }
+        });
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) clearTimeout(loopTimer); else schedule();
+        });
+        let resizeFrame = 0;
+        window.addEventListener('resize', () => {
+            cancelAnimationFrame(resizeFrame);
+            resizeFrame = requestAnimationFrame(() => { if (desktopQ.matches) place(false); });
+        });
+        const setup = () => {
+            clearTimeout(loopTimer);
+            if (desktopQ.matches) { place(false); schedule(); }
+            else { track.style.transform = ''; cards.forEach(c => c.classList.remove('is-center')); }
+        };
+        desktopQ.addEventListener('change', setup);
+        if (document.readyState === 'complete') setup(); else window.addEventListener('load', setup);
+    }
+
     // --- Startseite: Logo dreht zu Anna ---
     // Ablauf: 6 s warten, 0,6 s drehen (0,3 s bis 90 Grad, Szenenwechsel,
     // die neue Szene dreht sich in Gegenrichtung zurueck auf 0), 1 s Pause,
