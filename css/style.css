@@ -981,6 +981,7 @@ body.inner-page:has(.booking-hero) { background: transparent; }
 }
 .hero-stage {
     position: relative;
+    left: 50px;          /* Logo und Anna etwas weiter rechts als der Ticker */
     flex: 1 1 auto;
     min-height: 0;
     width: 100%;
@@ -1096,7 +1097,26 @@ body.inner-page:has(.booking-hero) { background: transparent; }
         drop-shadow(0 4px 4px rgba(0,0,0,0.45))
         drop-shadow(0 14px 22px rgba(0,0,0,0.45));
 }
+.ticker-desc:not([hidden]) { animation: descFadeIn 0.6s ease-out both; }
+@keyframes descFadeIn { from { opacity: 0; } to { opacity: 1; } }
 .ticker-desc strong { display: block; margin-bottom: 0.2rem; font-size: 0.95rem; }
+.ticker-desc span:not([aria-hidden]) { display: block; }
+/* Buchen-Button in der Beschreibung: dunkelgruen auf der hellen Karte */
+.ticker-desc .ticker-book {
+    --btn-ring: #fff3cf;
+    display: inline-flex;
+    width: auto;
+    min-height: 38px;
+    margin-top: 0.65rem;
+    padding: 0 1.2rem;
+    font-size: 0.9rem;
+    color: var(--color-gold-light);
+    background: var(--color-primary-dark);
+}
+.ticker-desc .ticker-book:hover { color: var(--color-gold-light); }
+@media (prefers-reduced-motion: reduce) {
+    .ticker-desc:not([hidden]) { animation: none; }
+}
 .ticker-desc::after {
     content: "";
     position: absolute;

@@ -111,16 +111,31 @@ document.addEventListener('DOMContentLoaded', () => {
             desc.textContent = '';
             const title = document.createElement('strong');
             title.textContent = src.dataset.title;
-            desc.append(title, src.dataset.desc);
+            const text = document.createElement('span');
+            text.textContent = src.dataset.desc;
+            const book = document.createElement('a');
+            book.className = 'btn-book ticker-book';
+            book.href = 'https://www.fresha.com/a/anna-vietnam-thai-massage-heilbronn-sichererstrasse-90-r8e9wyab';
+            book.target = '_blank';
+            book.rel = 'noopener';
+            book.textContent = 'Buchen ';
+            const arrow = document.createElement('span');
+            arrow.setAttribute('aria-hidden', 'true');
+            arrow.textContent = '→';
+            book.append(arrow);
+            desc.append(title, text, book);
             desc.hidden = false;
             card.querySelector('.ticker-hit').setAttribute('aria-expanded', 'true');
             openCard = card;
             clearTimeout(loopTimer);
+            // Anna/Logo sollen waehrend des Lesens auf dem Logo stehen bleiben
+            document.dispatchEvent(new CustomEvent('ticker:open'));
         };
         const closeDesc = () => {
             desc.hidden = true;
             if (openCard) openCard.querySelector('.ticker-hit').setAttribute('aria-expanded', 'false');
             openCard = null;
+            document.dispatchEvent(new CustomEvent('ticker:close'));
             if (desktopQ.matches) { normalize(); schedule(); }
         };
 
@@ -257,10 +272,13 @@ document.addEventListener('DOMContentLoaded', () => {
             slogan.classList.remove('is-typing');
         };
 
+        let tickerOpen = false;   // Beschreibung im Ticker offen: Logo pausiert
+
         const cycle = async () => {
             const id = ++run;
+            if (tickerOpen) return;
             await wait(6000);
-            if (id !== run || hovering || document.hidden) return;
+            if (id !== run || hovering || tickerOpen || document.hidden) return;
             await showScene(true, id);
             if (id !== run) return;
             await type(id);
@@ -281,8 +299,21 @@ document.addEventListener('DOMContentLoaded', () => {
             slogan.textContent = '';
         };
 
+        // Ticker-Beschreibung offen: sofort zurueck auf das Logo und dort
+        // bleiben (auch Hover dreht nicht), bis sie wieder geschlossen wird.
+        document.addEventListener('ticker:open', async () => {
+            tickerOpen = true;
+            const id = ++run; clearTimeout(timer);
+            slogan.classList.remove('is-typing');
+            await showScene(false, id);
+        });
+        document.addEventListener('ticker:close', () => {
+            tickerOpen = false;
+            if (desktop.matches && !hovering) cycle();
+        });
+
         stage.addEventListener('mouseenter', async () => {
-            if (!desktop.matches) return;
+            if (!desktop.matches || tickerOpen) return;
             hovering = true;
             const id = ++run; clearTimeout(timer);
             const wasAnna = stage.classList.contains('is-anna');
@@ -290,7 +321,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (id === run && (!wasAnna || slogan.textContent !== fullText)) type(id);
         });
         stage.addEventListener('mouseleave', async () => {
-            if (!desktop.matches) return;
+            if (!desktop.matches || tickerOpen) { hovering = false; return; }
             hovering = false;
             const id = ++run; clearTimeout(timer);
             slogan.classList.remove('is-typing');
