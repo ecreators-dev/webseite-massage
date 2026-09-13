@@ -1193,19 +1193,24 @@ body.inner-page:has(.booking-hero) { background: transparent; }
     color: var(--color-gold-light);
     font-size: 1.3rem;
 }
-/* Preis als Text oben rechts in der Kartenecke (Inter: die Ziffern der
-   Cinzel sind klein und schwer lesbar) */
+/* Preis oben rechts als Papier-Label: cremefarbener Zettel, leicht
+   schraeg, Firmengruen als Schrift (Inter: die Ziffern der Cinzel sind
+   klein und schwer lesbar) */
 .leistung-price {
     position: absolute;
     top: 0.8rem;
     right: 0.9rem;
     z-index: 1;
+    padding: 0.28rem 0.65rem 0.32rem;
     font-family: var(--font-body);
     font-weight: 700;
-    font-size: 1.2rem;
+    font-size: 1.05rem;
     line-height: 1.1;
-    color: var(--color-gold-light);
-    text-shadow: 0 1px 6px rgba(0,0,0,0.7);
+    color: var(--color-primary-dark);
+    background: linear-gradient(160deg, #fbf3dc 0%, #efe2bd 100%);
+    border-radius: 3px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.4), inset 0 -2px 0 rgba(0,0,0,0.06);
+    transform: rotate(3deg);
     white-space: nowrap;
     font-variant-numeric: tabular-nums;
 }
