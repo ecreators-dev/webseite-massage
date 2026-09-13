@@ -815,21 +815,23 @@ body.inner-page {
     content: "";
     position: absolute;
     inset: 0;
+    /* Gold ist schon hell - ein blasser Streifen darauf faellt nicht auf.
+       Deshalb fast reines Weiss, breiterer Kern und additive Mischung. */
     background: linear-gradient(110deg,
-        transparent 38%,
-        rgba(255,240,200,0.0) 44%,
-        rgba(255,240,200,0.75) 50%,
-        rgba(255,240,200,0.0) 56%,
-        transparent 62%);
+        transparent 34%,
+        rgba(255,250,230,0.35) 44%,
+        rgba(255,255,245,1) 50%,
+        rgba(255,250,230,0.35) 56%,
+        transparent 66%);
     background-size: 250% 100%;
     background-position: 130% 0;
     -webkit-mask: url('../images/brand/anna-logo-gold-mask.webp') center / 100% 100% no-repeat;
     mask: url('../images/brand/anna-logo-gold-mask.webp') center / 100% 100% no-repeat;
-    mix-blend-mode: screen;
-    animation: logoShimmer 6s ease-in-out 1.8s infinite;
+    mix-blend-mode: plus-lighter;
+    animation: logoShimmer 4s ease-in-out 1s infinite;
 }
 @keyframes logoShimmer {
-    0%, 60% { background-position: 130% 0; }
+    0%, 35% { background-position: 130% 0; }
     100% { background-position: -30% 0; }
 }
 @keyframes heroLogoIn {
