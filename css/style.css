@@ -1178,7 +1178,7 @@ body.inner-page:has(.booking-hero) { background: transparent; }
 .stage-slogan {
     position: absolute;
     top: 6%;
-    right: 54%;
+    right: calc(54% - 40px);
     width: clamp(220px, 17vw, 320px);
     padding: 0.7rem 1rem;
     font-family: var(--font-body);
