@@ -1320,16 +1320,16 @@ body.inner-page:has(.booking-hero) { background: transparent; }
     .booking-hero p { font-size: clamp(0.86rem, 1.85vh, 1.05rem); }
     /* Lotus gross links neben Titel und Unterzeile: nutzt die freie Breite
        statt zusaetzlicher Hoehe */
-    .booking-hero-text {
-        display: grid;
-        grid-template-columns: auto minmax(0, 1fr);
-        column-gap: clamp(1rem, 2vw, 2rem);
-        align-items: center;
-    }
+    /* Lotus gross in der freien Flaeche links neben dem Buchungstext:
+       mittig zwischen Seitenrand und Textspalte (56ch ~ 620px breit) */
     .booking-hero-lotus {
-        grid-row: 1 / span 2;
-        width: clamp(110px, 20vh, 200px);
+        position: fixed;
+        left: calc(25vw - 155px);
+        top: 58%;
+        width: clamp(120px, min(14vw, 28vh), 280px);
         margin: 0;
+        transform: translate(-50%, -50%);
+        pointer-events: none;
     }
     .handover {
         flex: 1 1 auto;
