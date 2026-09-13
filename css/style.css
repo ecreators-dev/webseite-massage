@@ -998,7 +998,10 @@ body.inner-page:has(.booking-hero) { background: transparent; }
 .hero-ticker {
     position: relative;
     flex: 0 0 auto;
-    width: 100%;
+    /* rechts 50px ueber die Spalte hinaus */
+    align-self: flex-start;
+    width: calc(100% + 50px);
+    margin-right: -50px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -1007,7 +1010,8 @@ body.inner-page:has(.booking-hero) { background: transparent; }
 .ticker-viewport {
     width: 100%;
     overflow: hidden;
-    padding-block: clamp(10px, 1.8vh, 16px);
+    /* oben genug Luft fuer den Stern auf der vergroesserten Mittelkarte */
+    padding-block: 28px clamp(10px, 1.8vh, 16px);
     -webkit-mask-image: linear-gradient(to right, transparent 0, #000 24%, #000 76%, transparent 100%);
     mask-image: linear-gradient(to right, transparent 0, #000 24%, #000 76%, transparent 100%);
 }
