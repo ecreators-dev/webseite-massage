@@ -873,33 +873,38 @@ body.inner-page:has(.booking-hero) { background: transparent; }
     width: min(46vw, 620px);
     padding: 1rem 0 3rem clamp(1.5rem, 5vw, 5rem);
 }
-.hero-eyebrow {
-    font-size: 0.8rem;
-    font-weight: 600;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--color-gold);
-}
+/* Eine Botschaft statt vier Ebenen: Ueberschrift (Anna + Ort) und eine
+   Unterzeile. Die Ueberschrift ist rund 2,5x so gross wie die Unterzeile,
+   damit der Blick nach dem Titel beim Inhalt ankommt statt daran haengt. */
 .hero-title {
     font-family: var(--font-heading);
     font-weight: 700;
-    font-size: clamp(2.6rem, 5.2vw, 5rem);
-    line-height: 1.05;
+    font-size: clamp(2.1rem, 3.4vw, 3.25rem);
+    line-height: 1.12;
     color: var(--color-gold);
-    margin: 0.8rem 0 0.6rem;
+    margin: 0 0 0.9rem;
+    text-wrap: balance;
     text-shadow: 0 2px 14px rgba(0,0,0,0.35);
 }
-.hero-slogan {
-    font-style: italic;
-    font-size: clamp(1.1rem, 1.6vw, 1.45rem);
-    color: var(--color-gold-light);
-}
 .hero-text {
-    font-size: clamp(0.95rem, 1.1vw, 1.05rem);
-    line-height: 1.6;
-    opacity: 0.9;
+    font-size: clamp(1.05rem, 1.3vw, 1.25rem);
+    line-height: 1.55;
+    color: var(--color-text-light);
+    max-width: 38ch;
+}
+/* Vertrauenszeile direkt am Button: Preis, Ort, Zeiten */
+.hero-facts {
     margin-top: 0.8rem;
-    max-width: 46ch;
+    font-size: 0.92rem;
+    color: rgba(242,236,220,0.85);
+    font-variant-numeric: tabular-nums;
+}
+.hero-facts .fact { white-space: nowrap; }
+.hero-facts .dot { color: var(--color-gold); padding: 0 0.3rem; }
+@media (max-width: 560px) {
+    /* zwei statt drei Zeilen fuer die Ueberschrift auf dem Handy */
+    .hero-title { font-size: clamp(1.6rem, 7.6vw, 2rem); }
+    .hero-facts { line-height: 1.7; }
 }
 .hero-features {
     list-style: none;
@@ -939,16 +944,12 @@ body.inner-page:has(.booking-hero) { background: transparent; }
         min-height: 0;
         padding: clamp(0.3rem, 1vh, 1rem) 0 clamp(0.6rem, 2.5vh, 3rem) clamp(1.5rem, 5vw, 5rem);
     }
-    .hero-eyebrow { font-size: clamp(0.68rem, 1.4vh, 0.8rem); }
     .hero-title {
-        font-size: clamp(2.2rem, min(5.2vw, 8.4vh), 5rem);
-        margin: clamp(0.3rem, 1.2vh, 0.8rem) 0 clamp(0.2rem, 0.9vh, 0.6rem);
+        font-size: clamp(1.9rem, min(3.4vw, 5.8vh), 3.25rem);
+        margin: 0 0 clamp(0.4rem, 1.4vh, 0.9rem);
     }
-    .hero-slogan { font-size: clamp(0.95rem, min(1.6vw, 2.6vh), 1.45rem); }
-    .hero-text {
-        font-size: clamp(0.85rem, min(1.1vw, 1.95vh), 1.05rem);
-        margin-top: clamp(0.3rem, 1.2vh, 0.8rem);
-    }
+    .hero-text { font-size: clamp(0.98rem, min(1.3vw, 2.2vh), 1.25rem); }
+    .hero-facts { margin-top: clamp(0.4rem, 1.2vh, 0.8rem); font-size: clamp(0.8rem, 1.6vh, 0.92rem); }
     .hero-features { margin: clamp(0.7rem, 2.6vh, 1.8rem) 0 clamp(0.8rem, 2.8vh, 2rem); }
     .hero-features li { font-size: clamp(0.72rem, 1.6vh, 0.85rem); gap: clamp(0.25rem, 0.8vh, 0.5rem); }
     .hero-feature-icon { width: clamp(40px, 6.2vh, 56px); height: clamp(40px, 6.2vh, 56px); }
@@ -966,7 +967,9 @@ body.inner-page:has(.booking-hero) { background: transparent; }
     z-index: 1;
     left: 62%;
     top: 40%;
-    width: clamp(260px, 25vw, 440px);
+    /* etwa 60 % der frueheren Groesse: das Logo begleitet, die
+       Ueberschrift fuehrt */
+    width: clamp(170px, 15vw, 270px);
     transform: translate(-50%, -50%);
     pointer-events: none;
     opacity: 0;
@@ -1038,7 +1041,9 @@ body.inner-page:has(.booking-hero) { background: transparent; }
 /* Tablet & phone: photo on top, text below on green */
 @media (max-width: 900px) {
     .hero { min-height: 0; }
-    .hero-bg-split { position: relative; order: 2; flex-direction: column; height: 46vh; min-height: 240px; }
+    /* Foto als flacher Streifen, damit Ueberschrift und Button auf dem
+       Handy im ersten Bildschirm stehen */
+    .hero-bg-split { position: relative; order: 2; flex-direction: column; height: 24vh; min-height: 160px; }
     .hero-bg-left { display: none; }
     .hero-bg-right { width: 100%; height: 100%; }
     .hero-bg-right img { object-position: 82% center; }
