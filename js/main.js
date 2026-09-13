@@ -52,8 +52,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Startseite: Logo dreht zu Anna ---
     // Ablauf: 6 s warten, 0,6 s drehen (0,3 s bis 90 Grad, Szenenwechsel,
-    // 0,3 s zurueck auf 0), Gruss 2,4 s tippen, 3 s stehen, zurueckdrehen,
-    // wieder 6 s warten. Maus auf der Buehne: sofort zu Anna und dort
+    // die neue Szene dreht sich in Gegenrichtung zurueck auf 0), 1 s Pause,
+    // Satz 7,2 s tippen, 3 s stehen, zurueckdrehen, wieder 6 s warten. Maus auf der Buehne: sofort zu Anna und dort
     // bleiben, bis die Maus geht. Tab unsichtbar: Ablauf pausiert.
     const stage = document.querySelector('.hero-stage');
     const flip = stage && stage.querySelector('.hero-flip');
@@ -118,19 +118,24 @@ document.addEventListener('DOMContentLoaded', () => {
         const showScene = async (anna, id) => {
             if (stage.classList.contains('is-anna') === anna) return;
             if (reduced.matches) { stage.classList.toggle('is-anna', anna); return; }
-            await half(0, 90, 'cubic-bezier(0.55, 0, 1, 0.45)');
+            // Zu Anna: Logo dreht auf +90, Anna dreht von +90 zurueck (Gegen-
+            // richtung). Zum Logo spiegelbildlich ueber -90.
+            const edge = anna ? 90 : -90;
+            await half(0, edge, 'cubic-bezier(0.55, 0, 1, 0.45)');
             if (id !== run) return;
             stage.classList.toggle('is-anna', anna);
             if (!anna) slogan.textContent = '';
-            await half(-90, 0, 'cubic-bezier(0, 0.55, 0.45, 1)');
+            await half(edge, 0, 'cubic-bezier(0, 0.55, 0.45, 1)');
         };
 
         const type = async (id) => {
             fullText = nextSaying();   // erste Drehung: Satz der Stunde, danach wechselnd
             if (reduced.matches) { slogan.textContent = fullText; return; }
             slogan.textContent = '';
+            await wait(1000);          // 1 s nach der Drehung, dann tippen
+            if (id !== run) return;
             slogan.classList.add('is-typing');
-            const step = 2400 / Math.max(fullText.length, 1);
+            const step = 7200 / Math.max(fullText.length, 1);
             for (let i = 1; i <= fullText.length; i++) {
                 await wait(step);
                 if (id !== run) return;

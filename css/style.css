@@ -1034,7 +1034,10 @@ body.inner-page:has(.booking-hero) { background: transparent; }
     color: var(--color-primary-dark);
     background: linear-gradient(160deg, #fbf3dc 0%, #efe2bd 100%);
     border-radius: 16px;
-    box-shadow: 0 10px 26px rgba(0,0,0,0.4);
+    /* Schlagschatten ueber drop-shadow, damit auch die Spitze einen hat */
+    filter:
+        drop-shadow(0 4px 4px rgba(0,0,0,0.45))
+        drop-shadow(0 14px 22px rgba(0,0,0,0.45));
     transition: opacity 0.2s ease;
 }
 .stage-slogan::before {
