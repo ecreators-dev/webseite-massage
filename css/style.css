@@ -1071,6 +1071,79 @@ body.inner-page:has(.booking-hero) { background: transparent; }
     overflow: hidden;
     text-overflow: ellipsis;
 }
+/* Auf dem Bild: "mehr Infos" oben links, Preis oben rechts (Papier-Label
+   wie auf der Leistungsseite, goldenes Ticket fuer hervorgehobene Dienste) */
+.ticker-info {
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    z-index: 1;
+    padding: 2px 6px;
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--color-gold-light);
+    background: rgba(3,26,18,0.78);
+    border-radius: 999px;
+}
+.ticker-price {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    z-index: 1;
+    padding: 1px 6px 2px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--color-primary-dark);
+    background: linear-gradient(160deg, #fbf3dc 0%, #efe2bd 100%);
+    border-radius: 3px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.4);
+    transform: rotate(3deg);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+}
+.ticker-card.featured .ticker-price {
+    top: 7px;
+    padding: 2px 9px 3px;
+    font-weight: 800;
+    background: linear-gradient(135deg, #f3dc9f 0%, var(--color-gold) 45%, #c99a45 70%, #efd592 100%);
+    -webkit-mask:
+        radial-gradient(circle at 0 50%, transparent 4px, #000 4.5px) left / 51% 100% no-repeat,
+        radial-gradient(circle at 100% 50%, transparent 4px, #000 4.5px) right / 51% 100% no-repeat;
+    mask:
+        radial-gradient(circle at 0 50%, transparent 4px, #000 4.5px) left / 51% 100% no-repeat,
+        radial-gradient(circle at 100% 50%, transparent 4px, #000 4.5px) right / 51% 100% no-repeat;
+}
+/* Goldener, schimmernder Stern mittig auf der Oberkante des Bildes */
+.ticker-star {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    z-index: 3;
+    width: 24px;
+    height: 24px;
+    transform: translate(-50%, -50%);
+    filter: drop-shadow(0 2px 3px rgba(0,0,0,0.55));
+    pointer-events: none;
+}
+.ticker-star span {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(110deg, #b8862f 0%, #D9B05F 30%, #fff6d6 48%, #ebd091 56%, #c99a45 75%, #b8862f 100%);
+    background-size: 260% 100%;
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 1.5l3.1 6.9 7.4.7-5.6 5 1.7 7.4L12 17.7l-6.6 3.8 1.7-7.4-5.6-5 7.4-.7z'/%3E%3C/svg%3E") center / contain no-repeat;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 1.5l3.1 6.9 7.4.7-5.6 5 1.7 7.4L12 17.7l-6.6 3.8 1.7-7.4-5.6-5 7.4-.7z'/%3E%3C/svg%3E") center / contain no-repeat;
+    animation: starShimmer 3.2s ease-in-out infinite;
+}
+@keyframes starShimmer {
+    0%, 30% { background-position: 110% 0; }
+    100% { background-position: -10% 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .ticker-star span { animation: none; background-position: 50% 0; }
+}
 .ticker-meta {
     display: block;
     padding: 0.1rem 0.5rem 0.4rem;
@@ -1205,7 +1278,7 @@ body.inner-page:has(.booking-hero) { background: transparent; }
     border-color: transparent transparent transparent #f4e8c6;
 }
 .stage-slogan:empty { opacity: 0; }
-.stage-slogan.is-typing::after {
+.stage-slogan.is-typing .typed::after {
     content: "";
     display: inline-block;
     width: 2px;
@@ -1216,6 +1289,8 @@ body.inner-page:has(.booking-hero) { background: transparent; }
     animation: caretBlink 0.8s steps(1) infinite;
 }
 @keyframes caretBlink { 50% { opacity: 0; } }
+/* noch nicht getippter Rest: haelt die Blase auf Endgroesse, bleibt unsichtbar */
+.stage-slogan .rest { visibility: hidden; }
 @media (max-width: 900px), (orientation: landscape) and (max-height: 520px) {
     .hero-stage { display: none; }
     /* Mobil: Ticker als wischbare Reihe unter dem Text, ohne Automatik */
@@ -1252,7 +1327,7 @@ body.inner-page:has(.booking-hero) { background: transparent; }
 @media (prefers-reduced-motion: reduce) {
     .ticker-card, .ticker-hit { transition: none; }
     .hero-stage { animation: none; opacity: 1; }
-    .stage-slogan.is-typing::after { animation: none; }
+    .stage-slogan.is-typing .typed::after { animation: none; }
 }
 /* Schlagschatten ueber drop-shadow: folgt dem Alphakanal, also der
    Kontur der Marke statt dem Bildrechteck. Zwei Stufen - eng und dunkel

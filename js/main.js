@@ -260,15 +260,28 @@ document.addEventListener('DOMContentLoaded', () => {
             fullText = nextSaying();   // erste Drehung: Satz der Stunde, danach wechselnd
             if (reduced.matches) { slogan.textContent = fullText; return; }
             slogan.textContent = '';
+            slogan.dataset.complete = '0';
             await wait(1000);          // 1 s nach der Drehung, dann tippen
             if (id !== run) return;
+            // Der ganze Satz steht von Anfang an unsichtbar in der Blase, damit
+            // sie gleich ihre endgueltige Groesse hat und beim Tippen nicht waechst.
+            const typed = document.createElement('span');
+            typed.className = 'typed';
+            const rest = document.createElement('span');
+            rest.className = 'rest';
+            rest.setAttribute('aria-hidden', 'true');
+            rest.textContent = fullText;
+            slogan.replaceChildren(typed, rest);
             slogan.classList.add('is-typing');
             const step = 7200 / Math.max(fullText.length, 1);
             for (let i = 1; i <= fullText.length; i++) {
                 await wait(step);
                 if (id !== run) return;
-                slogan.textContent = fullText.slice(0, i);
+                typed.textContent = fullText.slice(0, i);
+                rest.textContent = fullText.slice(i);
             }
+            slogan.textContent = fullText;
+            slogan.dataset.complete = '1';
             slogan.classList.remove('is-typing');
         };
 
@@ -318,7 +331,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const id = ++run; clearTimeout(timer);
             const wasAnna = stage.classList.contains('is-anna');
             await showScene(true, id);
-            if (id === run && (!wasAnna || slogan.textContent !== fullText)) type(id);
+            if (id === run && (!wasAnna || slogan.dataset.complete !== '1')) type(id);
         });
         stage.addEventListener('mouseleave', async () => {
             if (!desktop.matches || tickerOpen) { hovering = false; return; }
