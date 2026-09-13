@@ -1328,6 +1328,8 @@ body.inner-page:has(.booking-hero) { background: transparent; }
         background: var(--color-primary-dark);
     }
     .hero-legal { order: 5; }
+    /* die Desktop-Verlaengerung (+50px rechts) gilt mobil nicht */
+    .hero-ticker { align-self: stretch; width: 100%; margin-right: 0; }
     .ticker-viewport {
         overflow-x: auto;
         scroll-snap-type: x mandatory;
@@ -1339,15 +1341,19 @@ body.inner-page:has(.booking-hero) { background: transparent; }
     .ticker-track { --card-w: 150px; transform: none !important; }
     .ticker-card { scroll-snap-align: start; transform: none; opacity: 1; }
     .ticker-card[aria-hidden="true"] { display: none; }
+    /* Beschreibung ueber den Karten als Ebene: volle Bildschirmbreite
+       (mit Rand), erweitert die Seite nicht nach unten. Die Spitze zeigt
+       auf die angetippte Karte (--tail-x setzt main.js). */
     .ticker-desc {
-        position: static;
-        order: 2;
+        position: absolute;
+        left: 12px;
+        right: 12px;
+        bottom: calc(100% - 22px);
         width: auto;
-        margin: 0 1.25rem;
         transform: none;
+        scroll-margin: 16px;   /* Abstand zum Bildschirmrand beim Einblenden */
     }
-    .ticker-desc::after { display: none; }
-    .ticker-more { order: 3; }
+    .ticker-desc::after { left: var(--tail-x, 50%); }
 }
 @media (prefers-reduced-motion: reduce) {
     .ticker-card, .ticker-hit { transition: none; }

@@ -134,6 +134,17 @@ document.addEventListener('DOMContentLoaded', () => {
             actions.append(book, hide);
             desc.append(title, text, actions);
             desc.hidden = false;
+            if (!desktopQ.matches) {
+                // Mobil: Spitze ueber die angetippte Karte setzen und die
+                // Beschreibung vollstaendig in den sichtbaren Bereich holen
+                const dr = desc.getBoundingClientRect();
+                const cr = card.getBoundingClientRect();
+                const tail = Math.min(Math.max(cr.left + cr.width / 2 - dr.left, 24), dr.width - 24);
+                desc.style.setProperty('--tail-x', `${tail}px`);
+                // sofort statt 'smooth': sanftes Scrollen wurde teils nicht
+                // ausgefuehrt, dann lagen Buchen/verbergen unter dem Rand
+                desc.scrollIntoView({ block: 'nearest' });
+            }
             card.querySelector('.ticker-hit').setAttribute('aria-expanded', 'true');
             openCard = card;
             clearTimeout(loopTimer);
