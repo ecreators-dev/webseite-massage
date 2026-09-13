@@ -589,9 +589,24 @@ body.inner-page {
 }
 /* .btn-book traegt dunkle Schrift ohne Rand fuer Gold - auf Gruen
    braucht der Button Goldschrift und Goldrand wie die Telefon-Buttons. */
-.btn-book.btn-green {
+.btn-book.btn-green,
+.handover .handover-phone {
     color: var(--color-gold-light);
     border: 1px solid var(--color-gold);
+}
+/* Hamburger wird zum X, gesteuert ueber aria-expanded statt Inline-Styles */
+.mobile-menu-toggle[aria-expanded="true"] .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+.mobile-menu-toggle[aria-expanded="true"] .bar:nth-child(2) { opacity: 0; }
+.mobile-menu-toggle[aria-expanded="true"] .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+/* Mobil: Links und Buttons mindestens 44px hoch, damit sie mit dem
+   Finger sicher treffbar sind */
+@media (max-width: 900px) {
+    .legal-links .legal-link,
+    .hero-legal .legal-link,
+    .contact-page .contact-list a,
+    .btn-book { min-height: 44px; }
+    .legal-links .legal-link,
+    .contact-page .contact-list a { display: inline-flex; align-items: center; }
 }
 @keyframes phoneShimmer {
     0%, 55% { transform: translateX(-120%); }
@@ -807,7 +822,9 @@ body.inner-page {
    ueber den Rand. Hier nimmt jede Groesse den kleineren Wert aus Breite
    und Hoehe, und die Hoehe ist fest an das Fenster gebunden. */
 @media (min-width: 901px) and (min-height: 600px) {
-    .hero { height: 100vh; height: 100dvh; min-height: 0; }
+    /* min-height statt height: Bei vergroesserter Schrift (Browser-Zoom
+       200 %) waechst die Seite und scrollt, statt Inhalt abzuschneiden. */
+    .hero { height: auto; min-height: 100vh; min-height: 100dvh; }
     .hero-header { padding-block: clamp(0.35rem, 1.2vh, 1rem); }
     .hero-content {
         min-height: 0;
@@ -951,6 +968,7 @@ body.inner-page {
     .fade-in, .hero-bg-left, .hero-bg-right, .hero-logo { animation: none; opacity: 1; }
     .hero-logo::after { animation: none; opacity: 0; }
     .phone-pill::after, .handover .handover-phone::after, .btn-book.btn-green::after { animation: none; opacity: 0; }
+    .mobile-menu-toggle .bar { transition: none; }
     .btn-book, .leistung-card, .leistung-img { transition: none; }
     .btn-book:active, .mobile-menu-toggle:active,
     .leistung-card:hover, .leistung-card:hover .leistung-img { transform: none; }
@@ -1114,6 +1132,7 @@ body.inner-page {
 .contact-page .contact-list li { font-size: 1.05rem; padding: 7px 0; white-space: normal; }
 .contact-page .c-icon { width: 30px; height: 30px; padding: 6px; }
 .contact-page .contact-list a:hover { color: var(--color-gold-light); }
+.contact-page .contact-list a { overflow-wrap: anywhere; }
 .contact-actions { display: flex; flex-wrap: wrap; gap: 0.9rem; margin-top: 1.4rem; }
 .contact-actions .btn-book { width: auto; display: inline-flex; padding: 0 1.6rem; margin-top: 0; }
 .anfahrt { margin: 0; }

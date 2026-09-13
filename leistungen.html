@@ -29,10 +29,10 @@
     <!-- ============ SITE HEADER / NAV (shared markup, duplicated per page) ============ -->
     <header class="site-header">
         <a href="index.html" class="site-logo">
-            <img src="images/brand/anna-logo.webp" alt="Anna Vietnam Thai-Massage – zur Startseite" class="site-logo-img" width="1100" height="730">
+            <img src="images/brand/anna-logo-480.webp" srcset="images/brand/anna-logo-480.webp 480w, images/brand/anna-logo.webp 1100w" sizes="120px" alt="Anna Vietnam Thai-Massage – zur Startseite" class="site-logo-img" width="1100" height="730">
         </a>
 
-        <nav class="site-nav">
+        <nav class="site-nav" aria-label="Hauptmenü">
             <a href="index.html" class="nav-link">Startseite</a>
             <a href="leistungen.html" class="nav-link active">Unsere Leistungen</a>
             <a href="termin-buchen.html" class="nav-link">Termin buchen</a>
@@ -41,16 +41,16 @@
         </nav>
 
         <a href="tel:+4917622552587" class="phone-pill">
-            <svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.3 0 .7-.2 1l-2.3 2.2z"/></svg>
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.3 0 .7-.2 1l-2.3 2.2z"/></svg>
             <span>+49 176 2255 2587</span>
         </a>
 
-        <button class="mobile-menu-toggle" aria-label="Menü öffnen" aria-expanded="false">
+        <button class="mobile-menu-toggle" aria-label="Menü öffnen" aria-expanded="false" aria-controls="mobile-nav">
             <span class="bar"></span><span class="bar"></span><span class="bar"></span>
         </button>
     </header>
 
-    <nav class="nav-mobile">
+    <nav class="nav-mobile" id="mobile-nav" aria-label="Hauptmenü mobil">
         <a href="index.html" class="mobile-link">Startseite</a>
         <a href="leistungen.html" class="mobile-link">Unsere Leistungen</a>
         <a href="termin-buchen.html" class="mobile-link">Termin buchen</a>
@@ -83,8 +83,7 @@
                 <a href="https://www.fresha.com/a/anna-vietnam-thai-massage-heilbronn-sichererstrasse-90-r8e9wyab" class="btn-book" data-service="T" target="_blank" rel="noopener">Termin buchen <span aria-hidden="true">&rarr;</span></a>
             </article>
 
-            <article class="leistung-card featured">
-                <span class="price-tag">Empfohlen</span>
+            <article class="leistung-card">
                 <div class="leistung-img-frame">
                     <img src="images/leistungen/premium-wellness.webp" alt="Kopf-Spa mit Wasser: Kopfhautmassage über einer Kupferschale im Kerzenschein" class="leistung-img" width="1000" height="1000" loading="lazy">
                     <span class="leistung-time">120 Min.</span>

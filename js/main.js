@@ -3,61 +3,29 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Mobile Menu Toggle ---
     const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
     const navMobile = document.querySelector('.nav-mobile');
-    const mobileLinks = document.querySelectorAll('.mobile-link');
 
     if (mobileMenuToggle && navMobile) {
+        const setMenu = (open) => {
+            mobileMenuToggle.setAttribute('aria-expanded', String(open));
+            mobileMenuToggle.setAttribute('aria-label', open ? 'Menü schließen' : 'Menü öffnen');
+            navMobile.classList.toggle('active', open);
+        };
+
         mobileMenuToggle.addEventListener('click', () => {
-            const isExpanded = mobileMenuToggle.getAttribute('aria-expanded') === 'true';
-            mobileMenuToggle.setAttribute('aria-expanded', !isExpanded);
-            navMobile.classList.toggle('active');
-            
-            // Toggle hamburger animation
-            const bars = mobileMenuToggle.querySelectorAll('.bar');
-            if (!isExpanded) {
-                bars[0].style.transform = 'translateY(8px) rotate(45deg)';
-                bars[1].style.opacity = '0';
-                bars[2].style.transform = 'translateY(-8px) rotate(-45deg)';
-            } else {
-                bars[0].style.transform = 'none';
-                bars[1].style.opacity = '1';
-                bars[2].style.transform = 'none';
-            }
+            setMenu(mobileMenuToggle.getAttribute('aria-expanded') !== 'true');
         });
 
-        // Close mobile menu on link click
-        mobileLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                navMobile.classList.remove('active');
-                mobileMenuToggle.setAttribute('aria-expanded', 'false');
-                const bars = mobileMenuToggle.querySelectorAll('.bar');
-                bars[0].style.transform = 'none';
-                bars[1].style.opacity = '1';
-                bars[2].style.transform = 'none';
-            });
+        navMobile.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => setMenu(false));
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && navMobile.classList.contains('active')) {
+                setMenu(false);
+                mobileMenuToggle.focus();
+            }
         });
     }
-
-    // --- Smooth Scrolling for Anchor Links ---
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href');
-            if (targetId === '#') return;
-            
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-                // Adjust scroll position for fixed header
-                const headerOffset = 80;
-                const elementPosition = targetElement.getBoundingClientRect().top;
-                const offsetPosition = elementPosition + window.scrollY - headerOffset;
-
-                window.scrollTo({
-                    top: offsetPosition,
-                    behavior: "smooth"
-                });
-            }
-        });
-    });
 
     // --- Intersection Observer for Scroll Animations ---
     const faders = document.querySelectorAll('.fade-in');
