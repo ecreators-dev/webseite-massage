@@ -1191,6 +1191,26 @@ body.inner-page:has(.booking-hero) { background: transparent; }
     background: var(--color-primary-dark);
 }
 .ticker-desc .ticker-book:hover { color: var(--color-gold-light); }
+.ticker-desc-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 0.65rem;
+}
+.ticker-desc-actions .ticker-book { margin-top: 0; }
+.ticker-hide {
+    all: unset;
+    cursor: pointer;
+    padding: 6px 2px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--color-primary-dark);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+.ticker-hide:hover { color: #0f5a3e; }
+.ticker-hide:focus-visible { outline: 2px solid var(--color-primary-dark); outline-offset: 2px; border-radius: 3px; }
 @media (prefers-reduced-motion: reduce) {
     .ticker-desc:not([hidden]) { animation: none; }
 }

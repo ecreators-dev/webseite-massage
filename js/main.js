@@ -123,7 +123,16 @@ document.addEventListener('DOMContentLoaded', () => {
             arrow.setAttribute('aria-hidden', 'true');
             arrow.textContent = '→';
             book.append(arrow);
-            desc.append(title, text, book);
+            // unten rechts: Beschreibung wieder verbergen (wie Klick aufs Bild)
+            const hide = document.createElement('button');
+            hide.type = 'button';
+            hide.className = 'ticker-hide';
+            hide.textContent = 'verbergen';
+            hide.addEventListener('click', closeDesc);
+            const actions = document.createElement('div');
+            actions.className = 'ticker-desc-actions';
+            actions.append(book, hide);
+            desc.append(title, text, actions);
             desc.hidden = false;
             card.querySelector('.ticker-hit').setAttribute('aria-expanded', 'true');
             openCard = card;
