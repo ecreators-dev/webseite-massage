@@ -98,8 +98,8 @@ select:focus-visible,
 h1, h2, h3 { text-wrap: balance; }
 
 /* Figures read as quantities, so their digits share one width. */
-.leistung-price, .calendar-day, .duration-chip, .summary-price,
-.phone-pill, .mobile-phone, .time-slot { font-variant-numeric: tabular-nums; }
+.leistung-price, .leistung-time,
+.phone-pill, .mobile-phone { font-variant-numeric: tabular-nums; }
 
 /*
 ========================================
@@ -432,37 +432,66 @@ body.inner-page {
    letzte Wort allein stehen zu lassen. */
 .booking-hero p { font-size: 1.05rem; opacity: 0.9; max-width: 46ch; text-wrap: balance; }
 
-.booking-steps {
-    display: flex;
-    align-items: center;
-    list-style: none;
-    gap: 0.6rem;
-    margin-bottom: 1.8rem;
-    flex-wrap: wrap;
+/*
+========================================
+   UEBERGABE AN FRESHA
+   Die Buchung selbst findet bei Fresha
+   statt. Diese Seite erklaert den Weg und
+   nennt das Telefon als Alternative.
+========================================
+*/
+.handover {
+    max-width: 56ch;
+    margin: 0 auto 2.5rem;
+    text-align: center;
 }
-.booking-steps .step {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 0.95rem;
-    color: var(--color-text-light);
-    opacity: 0.6;
-}
-.booking-steps .step.active { opacity: 1; color: var(--color-gold-light); }
-.step-num {
-    width: 30px; height: 30px;
-    border-radius: 50%;
-    border: 1px solid var(--color-gold);
-    display: flex; align-items: center; justify-content: center;
+.handover h2 {
     font-family: var(--font-heading);
-    font-weight: 700;
     color: var(--color-gold);
-    flex: 0 0 auto;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    letter-spacing: 0.03em;
+    margin-bottom: 0.7rem;
 }
-.step.active .step-num { background: var(--color-gold); color: var(--color-primary-dark); }
-.step-line {
-    width: 40px; height: 1px;
-    background: rgba(217,176,95,0.35);
+.handover-lead { font-size: 1.05rem; opacity: 0.9; text-wrap: pretty; }
+.handover-points {
+    list-style: none;
+    display: inline-block;
+    text-align: left;
+    margin: 1.5rem 0;
+}
+.handover-points li {
+    position: relative;
+    padding-left: 1.8rem;
+    margin-bottom: 0.55rem;
+    font-size: 0.98rem;
+}
+.handover-points li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--color-gold);
+    font-weight: 700;
+}
+/* .btn-book setzt width:100% und steht spaeter in der Datei - deshalb
+   hier ueber den Kontext gewichtet, statt der Reihenfolge zu vertrauen. */
+.handover .btn-book {
+    width: auto;
+    display: inline-flex;
+}
+.handover-cta {
+    padding: 0 2rem;
+    font-size: 1.05rem;
+}
+.handover-note { font-size: 0.82rem; opacity: 0.65; margin-top: 0.8rem; }
+.handover-alt {
+    margin-top: 2.5rem;
+    padding-top: 1.8rem;
+    border-top: 1px solid rgba(217,176,95,0.2);
+}
+.handover-alt p { font-size: 0.95rem; opacity: 0.85; margin-bottom: 0.9rem; }
+.handover-phone {
+    padding: 0 1.6rem;
+    font-variant-numeric: tabular-nums;
 }
 
 /*
@@ -476,252 +505,7 @@ body.inner-page {
 .booking-layout {
     display: block;
 }
-/* Die drei Schritte stehen nebeneinander und sollen auch so enden:
-   gleiche Hoehe, der Inhalt waechst in den verfuegbaren Raum. */
-.booking-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.4rem;
-    align-items: stretch;
-}
-.booking-card {
-    background: rgba(0,0,0,0.22);
-    border: 1px solid rgba(217,176,95,0.25);
-    border-radius: 14px;
-    padding: 1.4rem;
-    display: flex;
-    flex-direction: column;
-    min-width: 0;
-}
-.booking-card h2 {
-    font-family: var(--font-body);
-    font-weight: 700;
-    font-size: 1.2rem;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 0.3rem;
-}
-.card-num {
-    width: 26px; height: 26px;
-    border-radius: 50%;
-    background: var(--color-gold);
-    color: var(--color-primary-dark);
-    font-family: var(--font-heading);
-    font-weight: 700;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 0.9rem;
-    flex: 0 0 auto;
-}
-.card-hint { font-size: 0.85rem; opacity: 0.75; margin-bottom: 1rem; }
-
-/*
-========================================
-   SERVICE OPTIONS (step 1)
-========================================
-*/
-/* The list scrolls, so the last visible card must not look chopped: fade the
-   final rows out to signal there is more below. */
-.service-list-booking {
-    display: flex;
-    flex-direction: column;
-    gap: 0.7rem;
-    flex: 1 1 auto;
-    min-height: 260px;
-    overflow-y: auto;
-    padding-right: 6px;
-    scroll-behavior: smooth;
-}
-/* Nur wenn die Liste wirklich laenger ist als ihr Fenster: ausblenden
-   statt hart abschneiden. Die Klasse setzt js/main.js. */
-.service-list-booking.is-scrollable {
-    -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 2.5rem), transparent 100%);
-    mask-image: linear-gradient(to bottom, #000 calc(100% - 2.5rem), transparent 100%);
-}
-.service-list-booking:not(:hover)::-webkit-scrollbar-thumb { background: rgba(217,176,95,0.22); background-clip: content-box; }
-.service-option { display: block; cursor: pointer; }
-.service-option input { position: absolute; opacity: 0; width: 1px; height: 1px; }
-.service-option-body {
-    border: 1px solid rgba(217,176,95,0.25);
-    border-radius: 10px;
-    padding: 0.8rem 0.9rem;
-    transition: 0.2s ease;
-}
-.service-option input:checked + .service-option-body {
-    border-color: var(--color-gold);
-    background: rgba(217,176,95,0.12);
-    box-shadow: 0 0 0 1px var(--color-gold) inset;
-}
-.service-option input:focus-visible + .service-option-body { outline: 2px solid var(--color-gold-light); }
-.service-option-body h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 2px; }
-/* Beim Auswaehlen zaehlen Name, Dauer und Preis. Die ausfuehrliche
-   Beschreibung steht auf der Leistungsseite, hier genuegt der Anriss —
-   so passen mehr Angebote ins Sichtfeld. */
-.service-option-body p {
-    font-size: 0.85rem;
-    opacity: 0.8;
-    margin-bottom: 0.5rem;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-}
-.duration-chips { display: flex; flex-wrap: wrap; gap: 6px; }
-.duration-chip {
-    font-size: 0.78rem;
-    font-weight: 600;
-    padding: 4px 10px;
-    border-radius: 999px;
-    background: rgba(217,176,95,0.16);
-    color: var(--color-gold-light);
-    white-space: nowrap;
-}
 .price-disclaimer { font-size: 0.75rem; opacity: 0.55; margin-top: 0.8rem; font-style: italic; }
-
-/*
-========================================
-   CALENDAR (step 2)
-========================================
-*/
-.calendar-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 0.8rem;
-}
-.calendar-title { font-weight: 700; font-size: 1rem; }
-.calendar-nav {
-    width: 32px; height: 32px;
-    border-radius: 50%;
-    border: 1px solid rgba(217,176,95,0.4);
-    background: none;
-    color: var(--color-gold);
-    font-size: 1.1rem;
-    cursor: pointer;
-}
-.calendar-nav:hover { background: rgba(217,176,95,0.15); }
-.calendar-weekdays {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    text-align: center;
-    font-size: 0.75rem;
-    opacity: 0.65;
-    margin-bottom: 4px;
-}
-.calendar-days {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 4px;
-}
-.calendar-day {
-    aspect-ratio: 1;
-    min-height: 34px;
-    border: none;
-    border-radius: 8px;
-    background: rgba(255,255,255,0.04);
-    color: var(--color-text-light);
-    font-size: 0.85rem;
-    cursor: pointer;
-}
-.calendar-day:disabled { opacity: 0.25; cursor: not-allowed; }
-.calendar-day.today { border: 1px solid rgba(217,176,95,0.5); }
-.calendar-day.selected { background: var(--color-gold); color: var(--color-primary-dark); font-weight: 700; }
-.calendar-day.empty { visibility: hidden; }
-
-/* Shown until a date is picked, so the card is never simply blank.
-   Sitzt direkt unter dem Kalender; der Rest der Karte bleibt ruhig. */
-.slots-empty {
-    margin: 1.2rem 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 1rem;
-    border: 1px dashed rgba(217,176,95,0.28);
-    border-radius: 10px;
-    font-size: 0.85rem;
-    color: rgba(242,236,220,0.72);
-    text-align: center;
-    line-height: 1.5;
-}
-
-.time-slots-wrap { margin-top: 1.2rem; }
-.time-slots {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
-}
-.time-slot {
-    min-height: 44px;
-    border: 1px solid rgba(217,176,95,0.3);
-    border-radius: 8px;
-    background: none;
-    color: var(--color-text-light);
-    font-size: 0.9rem;
-    cursor: pointer;
-}
-.time-slot:hover { border-color: var(--color-gold); }
-.time-slot.selected { background: var(--color-gold); color: var(--color-primary-dark); font-weight: 700; border-color: var(--color-gold); }
-
-/*
-========================================
-   BOOKING SUMMARY + FORM (step 3)
-========================================
-*/
-.booking-summary {
-    background: rgba(0,0,0,0.25);
-    border: 1px solid rgba(217,176,95,0.25);
-    border-radius: 10px;
-    padding: 0.9rem;
-    margin-bottom: 1.2rem;
-}
-.summary-row {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 6px 0;
-    font-size: 0.9rem;
-    border-bottom: 1px solid rgba(217,176,95,0.12);
-}
-.summary-row:last-child { border-bottom: none; }
-.summary-icon { width: 20px; height: 20px; flex: 0 0 auto; }
-.summary-icon svg { width: 100%; height: 100%; fill: none; stroke: var(--color-gold); stroke-width: 1.6; }
-.summary-row div { display: flex; flex-direction: column; flex: 1 1 auto; }
-.summary-row div span { font-size: 0.78rem; opacity: 0.7; }
-.summary-price { font-weight: 700; color: var(--color-gold-light); }
-
-.form-heading { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.6rem; color: var(--color-gold-light); }
-.form-field {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    border: 1px solid rgba(217,176,95,0.3);
-    border-radius: 8px;
-    padding: 0 12px;
-    margin-bottom: 0.6rem;
-    min-height: 44px;
-}
-.form-field svg { width: 18px; height: 18px; fill: var(--color-gold); flex: 0 0 auto; }
-.form-field input, .form-field textarea {
-    flex: 1 1 auto;
-    background: none;
-    border: none;
-    color: var(--color-text-light);
-    font-family: var(--font-body);
-    font-size: 0.95rem;
-    padding: 12px 0;
-    resize: vertical;
-}
-.form-field input::placeholder, .form-field textarea::placeholder { color: rgba(242,236,220,0.5); }
-/* The ring belongs on the bordered wrapper, not the borderless input inside it. */
-.form-field { transition: border-color 0.2s ease, box-shadow 0.2s ease; }
-.form-field:focus-within {
-    border-color: var(--color-gold);
-    box-shadow: 0 0 0 3px rgba(217,176,95,0.18);
-}
-.form-field input:focus, .form-field textarea:focus { outline: none; }
-.form-field input:focus-visible, .form-field textarea:focus-visible { outline: none; }
-.form-field-textarea { align-items: flex-start; padding-top: 10px; }
-.form-field-textarea svg { margin-top: 2px; }
 
 .btn-book {
     display: flex;
@@ -742,32 +526,13 @@ body.inner-page {
 .btn-book { transition: filter 0.2s ease, transform 0.12s ease, box-shadow 0.2s ease; }
 .btn-book:hover { filter: brightness(1.05); box-shadow: 0 6px 18px rgba(0,0,0,0.28); }
 .btn-book:active { transform: translateY(1px); filter: brightness(0.98); box-shadow: 0 2px 8px rgba(0,0,0,0.24); }
-.calendar-nav:active, .time-slot:active, .mobile-menu-toggle:active { transform: translateY(1px); }
-.calendar-day:not(:disabled):hover { background: rgba(217,176,95,0.16); }
-.calendar-day { transition: background 0.18s ease; }
-.time-slot { transition: border-color 0.18s ease, background 0.18s ease; }
-.calendar-nav { transition: background 0.18s ease; }
+.mobile-menu-toggle:active { transform: translateY(1px); }
 .btn-secondary {
     background: none;
     border: 1px solid var(--color-gold);
     color: var(--color-gold);
     margin-top: 0.6rem;
 }
-.booking-note { font-size: 0.75rem; opacity: 0.6; text-align: center; margin-top: 0.6rem; }
-
-.confirmation-panel { text-align: center; padding: 1rem 0; }
-.confirmation-icon {
-    width: 56px; height: 56px;
-    margin: 0 auto 0.8rem;
-    border-radius: 50%;
-    background: var(--color-gold);
-    color: var(--color-primary-dark);
-    font-size: 1.6rem;
-    display: flex; align-items: center; justify-content: center;
-}
-.confirmation-panel h3 { font-family: var(--font-heading); color: var(--color-gold); font-size: 1.3rem; margin-bottom: 0.5rem; }
-.confirmation-panel p { font-size: 0.9rem; margin-bottom: 0.5rem; }
-.confirmation-note { opacity: 0.8; font-style: italic; }
 
 /*
 ========================================
@@ -802,55 +567,6 @@ body.inner-page {
 
 /*
 ========================================
-   BOOKING SIDE PHOTO COLUMN
-========================================
-*/
-.booking-side {
-    display: grid;
-    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
-    gap: 2.5rem;
-    align-items: center;
-    margin: 3rem 0 0.5rem;
-}
-.booking-side-photo {
-    position: relative;
-    border-radius: 14px;
-    overflow: hidden;
-    border: 1px solid rgba(217,176,95,0.3);
-}
-.booking-side-photo img:first-child {
-    width: 100%;
-    aspect-ratio: 3 / 2;
-    height: auto;
-    object-fit: cover;
-    display: block;
-}
-.booking-side-figure {
-    position: absolute;
-    bottom: -6px; right: -10px;
-    width: 40%;
-    mix-blend-mode: screen;
-    opacity: 0.85;
-    pointer-events: none;
-}
-.booking-side-quote {
-    font-family: var(--font-heading);
-    font-style: italic;
-    color: var(--color-gold-light);
-    text-align: left;
-    font-size: clamp(1.5rem, 2.4vw, 2.1rem);
-    margin-top: 0;
-    line-height: 1.3;
-}
-.booking-side-script {
-    text-align: left;
-    margin-top: 0.8rem;
-    white-space: normal;
-    font-size: clamp(0.95rem, 1.2vw, 1.1rem);
-}
-
-/*
-========================================
    ABOUT PAGE
 ========================================
 */
@@ -875,28 +591,14 @@ body.inner-page {
    RESPONSIVE: BOOKING / ABOUT PAGES
 ========================================
 */
-@media (max-width: 760px) {
-    .booking-side { grid-template-columns: 1fr; gap: 1.2rem; }
-    .booking-side-quote, .booking-side-script { text-align: center; }
-}
-@media (max-width: 900px) {
-    .booking-grid { grid-template-columns: 1fr 1fr; }
-    .booking-grid .booking-card:last-child { grid-column: 1 / -1; }
-}
 @media (max-width: 640px) {
     .site-header { flex-wrap: wrap; }
-    .booking-grid { grid-template-columns: 1fr; }
-    .time-slots { grid-template-columns: repeat(2, 1fr); }
-    .booking-steps { gap: 0.4rem; }
-    .step-label { display: none; }
     .about-cta { flex-direction: column; }
     .about-cta .btn-book { width: 100%; }
 }
 
-/* Mobile landscape: keep inner pages scrollable, single column, no clipping */
+/* Mobile landscape: kompakterer Kopfbereich */
 @media (orientation: landscape) and (max-height: 520px) {
-    .booking-grid { grid-template-columns: 1fr 1fr; }
-    .booking-grid .booking-card:last-child { grid-column: 1 / -1; }
     .site-header { padding: 0.6rem 1rem; }
 }
 
@@ -1206,11 +908,9 @@ body.inner-page {
 
 @media (prefers-reduced-motion: reduce) {
     .fade-in, .hero-bg-left, .hero-bg-right { animation: none; opacity: 1; }
-    .price-card, .btn-book, .form-field, .calendar-day, .time-slot, .calendar-nav,
-    .leistung-card, .leistung-img { transition: none; }
-    .btn-book:active, .calendar-nav:active, .time-slot:active, .mobile-menu-toggle:active,
+    .price-card, .btn-book, .leistung-card, .leistung-img { transition: none; }
+    .btn-book:active, .mobile-menu-toggle:active,
     .leistung-card:hover, .leistung-card:hover .leistung-img { transform: none; }
-    .service-list-booking { scroll-behavior: auto; }
 }
 
 /*

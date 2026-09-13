@@ -58,162 +58,25 @@
                     </div>
                 </section>
 
-                <ol class="booking-steps" id="booking-steps">
-                    <li class="step active" data-step="1"><span class="step-num">1</span><span class="step-label">Service wählen</span></li>
-                    <li class="step-line"></li>
-                    <li class="step" data-step="2"><span class="step-num">2</span><span class="step-label">Termin finden</span></li>
-                    <li class="step-line"></li>
-                    <li class="step" data-step="3"><span class="step-num">3</span><span class="step-label">Daten bestätigen</span></li>
-                </ol>
+                <section class="handover">
+                    <h2>So buchen Sie Ihren Termin</h2>
+                    <p class="handover-lead">Anna verwaltet ihre Termine über Fresha. Dort sehen Sie alle freien
+                    Zeiten auf einen Blick und schließen die Buchung in wenigen Schritten ab.</p>
 
-                <div class="booking-grid">
+                    <ul class="handover-points">
+                        <li>Sofortige Bestätigung – kein Warten auf einen Rückruf</li>
+                        <li>Termin jederzeit einsehen, verschieben oder absagen</li>
+                        <li>Erinnerung, bevor es losgeht</li>
+                    </ul>
 
-                    <!-- Step 1: Service -->
-                    <section class="booking-card" aria-labelledby="card1-title">
-                        <h2 id="card1-title"><span class="card-num">1</span> Service wählen</h2>
-                        <p class="card-hint">Wählen Sie die gewünschte Behandlung und Dauer aus.</p>
+                    <a href="https://www.fresha.com/a/anna-vietnam-thai-massage-heilbronn-sichererstrasse-90-r8e9wyab" class="btn-book handover-cta" target="_blank" rel="noopener">Freie Termine ansehen <span aria-hidden="true">&rarr;</span></a>
+                    <p class="handover-note">Sie werden zu Fresha weitergeleitet und schließen die Buchung dort ab.</p>
 
-                        <!-- Preise gemäß offizieller Preisliste (Stand 09/2026) -->
-                        <div class="service-list-booking" id="service-list">
-                            <label class="service-option">
-                                <input type="radio" name="service" value="Kopf-, Nacken- &amp; Schultermassage" checked>
-                                <div class="service-option-body">
-                                    <h3>Kopf-, Nacken- &amp; Schultermassage</h3>
-                                    <p>Sanfte Massage für Kopf, Nacken und Schultern. Löst Verspannungen und bringt neue Energie.</p>
-                                    <div class="duration-chips">
-                                        <span class="duration-chip" data-min="30" data-price="30">30 Min. · 30&nbsp;€</span>
-                                    </div>
-                                </div>
-                            </label>
-                            <label class="service-option">
-                                <input type="radio" name="service" value="Rückenmassage">
-                                <div class="service-option-body">
-                                    <h3>Rückenmassage</h3>
-                                    <p>Intensive Massage für Rücken, Nacken und Schultern. Löst Blockaden und sorgt für spürbare Entlastung.</p>
-                                    <div class="duration-chips">
-                                        <span class="duration-chip" data-min="45" data-price="45">45 Min. · 45&nbsp;€</span>
-                                    </div>
-                                </div>
-                            </label>
-                            <label class="service-option">
-                                <input type="radio" name="service" value="Traditionelle Thai-Massage">
-                                <div class="service-option-body">
-                                    <h3>Traditionelle Thai-Massage</h3>
-                                    <p>Ganzkörpermassage mit Druck- und Dehntechniken. Fördert die Energieflüsse und bringt Körper und Geist in Einklang.</p>
-                                    <div class="duration-chips">
-                                        <span class="duration-chip" data-min="60" data-price="60">60 Min. · 60&nbsp;€</span>
-                                    </div>
-                                </div>
-                            </label>
-                            <label class="service-option">
-                                <input type="radio" name="service" value="Aromaöl-Massage">
-                                <div class="service-option-body">
-                                    <h3>Aromaöl-Massage</h3>
-                                    <p>Sanfte, fließende Massage mit hochwertigen, natürlichen Ölen. Löst Spannungen und schenkt tiefe Entspannung.</p>
-                                    <div class="duration-chips">
-                                        <span class="duration-chip" data-min="90" data-price="80">90 Min. · 80&nbsp;€</span>
-                                    </div>
-                                </div>
-                            </label>
-                            <label class="service-option">
-                                <input type="radio" name="service" value="Premium Wellness-Massage">
-                                <div class="service-option-body">
-                                    <h3>Premium Wellness-Massage</h3>
-                                    <p>Individuelle Kombination aus Thai-Massage, Aromaöl und erfrischendem Kopf-Spa mit Wasser.</p>
-                                    <div class="duration-chips">
-                                        <span class="duration-chip" data-min="120" data-price="120">120 Min. · 120&nbsp;€</span>
-                                    </div>
-                                </div>
-                            </label>
-                        </div>
-                        <p class="price-disclaimer">Preise laut aktueller Preisliste.</p>
-                    </section>
-
-                    <!-- Step 2: Calendar -->
-                    <section class="booking-card" aria-labelledby="card2-title">
-                        <h2 id="card2-title"><span class="card-num">2</span> Termin finden</h2>
-                        <p class="card-hint">Wählen Sie ein verfügbares Datum und eine Uhrzeit.</p>
-
-                        <div class="calendar" id="calendar">
-                            <div class="calendar-header">
-                                <button type="button" class="calendar-nav" id="cal-prev" aria-label="Vorheriger Monat">&#8249;</button>
-                                <span class="calendar-title" id="cal-title"></span>
-                                <button type="button" class="calendar-nav" id="cal-next" aria-label="Nächster Monat">&#8250;</button>
-                            </div>
-                            <div class="calendar-weekdays">
-                                <span>Mo</span><span>Di</span><span>Mi</span><span>Do</span><span>Fr</span><span>Sa</span><span>So</span>
-                            </div>
-                            <div class="calendar-days" id="cal-days"></div>
-                        </div>
-
-                        <p class="slots-empty" id="slots-empty">Wählen Sie oben ein Datum – die freien Uhrzeiten erscheinen dann hier.</p>
-
-                        <div class="time-slots-wrap" id="time-slots-wrap" hidden>
-                            <p class="card-hint" id="time-slots-label">Verfügbare Termine</p>
-                            <div class="time-slots" id="time-slots"></div>
-                        </div>
-                    </section>
-
-                    <!-- Step 3: Summary + Form -->
-                    <section class="booking-card" aria-labelledby="card3-title">
-                        <h2 id="card3-title"><span class="card-num">3</span> Ihre Buchung</h2>
-                        <p class="card-hint">Bitte überprüfen Sie Ihre Auswahl und geben Sie Ihre Daten an.</p>
-
-                        <form id="booking-form" novalidate>
-                            <div class="booking-summary" id="booking-summary">
-                                <div class="summary-row">
-                                    <span class="summary-icon"><svg viewBox="0 0 24 24"><path d="M12 2 2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></span>
-                                    <div>
-                                        <strong id="summary-service">Kopf-, Nacken- &amp; Schultermassage</strong>
-                                        <span id="summary-duration">30 Minuten</span>
-                                    </div>
-                                    <span class="summary-price" id="summary-price">30&nbsp;€</span>
-                                </div>
-                                <div class="summary-row">
-                                    <span class="summary-icon"><svg viewBox="0 0 24 24"><path d="M7 2v2M17 2v2M3 8h18M4 5h16a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z"/></svg></span>
-                                    <span id="summary-date">Bitte wählen Sie ein Datum</span>
-                                </div>
-                                <div class="summary-row">
-                                    <span class="summary-icon"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 11h4v2h-6V7h2z"/></svg></span>
-                                    <span id="summary-time">Bitte wählen Sie eine Uhrzeit</span>
-                                </div>
-                            </div>
-
-                            <h3 class="form-heading">Ihre Kontaktdaten</h3>
-                            <div class="form-field">
-                                <svg viewBox="0 0 24 24"><path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5zm0 2c-3.3 0-10 1.7-10 5v3h20v-3c0-3.3-6.7-5-10-5z"/></svg>
-                                <input type="text" name="name" placeholder="Vorname Nachname" required autocomplete="name">
-                            </div>
-                            <div class="form-field">
-                                <svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.3 0 .7-.2 1l-2.3 2.2z"/></svg>
-                                <input type="tel" name="phone" placeholder="Telefonnummer" required autocomplete="tel">
-                            </div>
-                            <div class="form-field">
-                                <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
-                                <input type="email" name="email" placeholder="E-Mail-Adresse (optional)" autocomplete="email">
-                            </div>
-                            <div class="form-field form-field-textarea">
-                                <svg viewBox="0 0 24 24"><path d="M4 4h16v12H5.2L4 17.2V4z"/></svg>
-                                <textarea name="note" placeholder="Hinweis (optional, z. B. besondere Wünsche)" rows="2"></textarea>
-                            </div>
-
-                            <button type="submit" class="btn-book">
-                                Termin jetzt buchen <span aria-hidden="true">&rarr;</span>
-                            </button>
-                            <p class="booking-note">Dies ist keine verbindliche Online-Buchung. Wir melden uns telefonisch bei Ihnen, um Ihren Termin zu bestätigen.</p>
-                        </form>
-
-                        <div class="confirmation-panel" id="confirmation-panel" hidden>
-                            <div class="confirmation-icon">&#10003;</div>
-                            <h3>Anfrage erhalten!</h3>
-                            <p id="confirmation-summary"></p>
-                            <p class="confirmation-note">Vielen Dank! Wir melden uns telefonisch bei Ihnen, um Ihren Termin zu bestätigen.</p>
-                            <a href="index.html" class="btn-book btn-secondary">Zurück zur Startseite</a>
-                        </div>
-                    </section>
-
-                </div>
-
+                    <div class="handover-alt">
+                        <p>Lieber persönlich? Rufen Sie an, wir finden gemeinsam einen Termin.</p>
+                        <a href="tel:+4917622552587" class="btn-book btn-secondary handover-phone">+49&nbsp;176&nbsp;2255&nbsp;2587</a>
+                    </div>
+                </section>
 
                 <div class="feature-strip">
                     <div class="feature-item">
