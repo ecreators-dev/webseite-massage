@@ -373,11 +373,48 @@ body.inner-page {
    BOOKING HERO + STEPS
 ========================================
 */
+/* Das Foto traegt den Seitenkopf, statt unten als Band zu stehen, wo es
+   niemanden mehr erreicht. Der Verlauf ist links am dichtesten: dort
+   liegt die Schrift und braucht verlaesslichen Kontrast, rechts darf
+   das Motiv durchkommen. */
 .booking-hero {
-    text-align: left;
-    margin: 1.5rem 0 1.5rem;
     position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    border-radius: 16px;
+    border: 1px solid rgba(217,176,95,0.22);
+    margin: 1.5rem 0 1.8rem;
+    padding: clamp(1.6rem, 3.5vw, 2.8rem);
+    min-height: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    text-align: left;
 }
+.booking-hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 42%;
+}
+.booking-hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(100deg,
+        rgba(5,44,32,0.95) 0%,
+        rgba(5,44,32,0.88) 40%,
+        rgba(5,44,32,0.45) 74%,
+        rgba(5,44,32,0.22) 100%);
+}
+.booking-hero-text { min-width: 0; }
+.booking-hero h1 { text-wrap: nowrap; }
+@media (max-width: 900px) { .booking-hero h1 { text-wrap: balance; } }
 .booking-hero-lotus {
     width: 62px;
     margin-bottom: -0.2rem;
@@ -1203,6 +1240,11 @@ body.inner-page {
     gap: 1.6rem;
     margin-bottom: 2rem;
 }
+/* Ab dieser Breite passen drei Karten nebeneinander: fuenf Angebote
+   stehen dann in zwei Reihen statt in drei. */
+@media (min-width: 1100px) {
+    .leistungen-list { grid-template-columns: repeat(3, 1fr); }
+}
 .leistung-card {
     position: relative;
     background: rgba(0,0,0,0.22);
@@ -1224,18 +1266,42 @@ body.inner-page {
 .leistung-card.featured:hover { border-color: var(--color-gold-light); }
 
 .leistung-img-frame {
+    position: relative;
     border-radius: 10px;
     overflow: hidden;
-    margin-bottom: 1.2rem;
+    margin-bottom: 1rem;
 }
 .leistung-img {
     display: block;
     width: 100%;
     height: auto;
-    aspect-ratio: 4 / 3;
+    aspect-ratio: 16 / 9;
     object-fit: cover;
     object-position: center 62%;
     transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+/* Abdunkler unter dem Badge: Die Motive sind unten unterschiedlich hell,
+   ohne ihn traegt die Dauer keinen verlaesslichen Kontrast. */
+.leistung-img-frame::after {
+    content: "";
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 45%;
+    background: linear-gradient(to top, rgba(2,18,12,0.78), transparent);
+    pointer-events: none;
+}
+.leistung-time {
+    position: absolute;
+    left: 0.9rem;
+    bottom: 0.75rem;
+    z-index: 1;
+    font-family: var(--font-heading);
+    font-size: 1.35rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--color-gold-light);
+    text-shadow: 0 1px 6px rgba(0,0,0,0.55);
+    font-variant-numeric: tabular-nums;
 }
 .leistung-card:hover .leistung-img { transform: scale(1.03); }
 .leistung-card-head {
@@ -1260,14 +1326,18 @@ body.inner-page {
     white-space: nowrap;
     flex: 0 0 auto;
 }
-.leistung-duration {
-    font-size: 0.85rem;
-    color: var(--color-gold);
-    font-weight: 600;
-    letter-spacing: 0.03em;
-    margin-bottom: 0.6rem;
+/* Drei Zeilen genuegen, um die Behandlung einzuordnen; alles weitere
+   macht die Karte hoch, ohne die Entscheidung zu erleichtern. */
+.leistung-card p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    opacity: 0.9;
+    flex: 1 1 auto;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
-.leistung-card p { font-size: 0.95rem; line-height: 1.6; opacity: 0.9; flex: 1 1 auto; }
 .leistung-card .btn-book { width: auto; margin-top: 1rem; padding: 0 1.6rem; align-self: flex-start; }
 
 @media (max-width: 760px) {
