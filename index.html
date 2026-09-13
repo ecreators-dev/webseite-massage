@@ -190,7 +190,21 @@
             <p class="hero-facts"><span class="fact">ab 30&nbsp;€</span> <span class="dot" aria-hidden="true">·</span> <span class="fact">Sichererstraße 90, Heilbronn</span> <span class="dot" aria-hidden="true">·</span> <span class="fact">Mo–Sa 10–20 Uhr</span></p>
         </div>
 
-        <span class="hero-logo" aria-hidden="true"><img src="images/brand/anna-logo.webp" srcset="images/brand/anna-logo-480.webp 480w, images/brand/anna-logo.webp 1100w" sizes="(max-width: 1760px) 25vw, 440px" alt="" width="1100" height="730"></span>
+        <!-- Buehne rechts (nur Desktop): Das Logo dreht sich um die senkrechte
+             Achse; bei 90 Grad wechselt die Szene zu Anna vor ihrem Logo mit
+             getipptem Gruss. Ablauf in js/main.js, Aussehen in style.css. -->
+        <div class="hero-stage" aria-hidden="true">
+            <div class="hero-flip">
+                <div class="stage-logo">
+                    <span class="hero-logo"><img src="images/brand/anna-logo.webp" alt="" width="1100" height="730"></span>
+                </div>
+                <div class="stage-anna">
+                    <img class="stage-anna-mark" src="images/brand/anna-logo.webp" alt="" width="1100" height="730">
+                    <img class="stage-anna-person" src="images/about/anna-stehend-links.webp" alt="" width="437" height="1000">
+                    <p class="stage-slogan" data-text="Herzlich willkommen – ich bin Anna."></p>
+                </div>
+            </div>
+        </div>
 
         <footer class="hero-legal">
             <nav class="legal-links" aria-label="Rechtliches">
