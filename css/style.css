@@ -438,6 +438,7 @@ body.inner-page {
 @media (max-width: 900px) { .booking-hero h1 { text-wrap: balance; } }
 .booking-hero-lotus {
     width: 62px;
+    height: auto;
     margin-bottom: -0.2rem;
     margin-left: -6px;
     mix-blend-mode: screen;
@@ -676,7 +677,7 @@ body.inner-page {
 ========================================
 */
 .about-wrap { position: relative; }
-.about-lotus { width: 60px; margin-bottom: 0.5rem; mix-blend-mode: screen; }
+.about-lotus { width: 60px; height: auto; margin-bottom: 0.5rem; mix-blend-mode: screen; }
 .about-title { margin-top: 0; }
 .about-lead { font-size: 1.1rem; color: var(--color-gold-light); font-style: italic; margin-bottom: 1rem; }
 /* ~72 characters per line. The ch unit measures "0", which is wider than the
