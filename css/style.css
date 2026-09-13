@@ -534,6 +534,40 @@ body.inner-page {
     margin-top: 0.6rem;
 }
 
+/* Telefon-Buttons: Firmengruen mit langsam wanderndem Lichtschimmer.
+   Der Verlauf ist heller als der Seitengrund, damit der Button sich vom
+   dunklen Gruen abhebt; Goldrand und Goldschrift bleiben. Steht nach
+   .btn-secondary, damit dessen background:none hier nicht greift. */
+.phone-pill,
+.handover .handover-phone {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    background: linear-gradient(135deg, #0f5a3e 0%, #083A28 55%, #0c4d35 100%);
+    box-shadow: inset 0 1px 0 rgba(235,208,145,0.18), 0 4px 14px rgba(0,0,0,0.25);
+    transition: box-shadow 0.25s ease, border-color 0.25s ease;
+}
+.phone-pill::after,
+.handover .handover-phone::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(105deg, transparent 30%, rgba(235,208,145,0.28) 50%, transparent 70%);
+    transform: translateX(-120%);
+    animation: phoneShimmer 4.5s ease-in-out infinite;
+    pointer-events: none;
+}
+.phone-pill:hover,
+.handover .handover-phone:hover {
+    border-color: var(--color-gold-light);
+    box-shadow: inset 0 1px 0 rgba(235,208,145,0.28), 0 6px 18px rgba(0,0,0,0.32);
+}
+@keyframes phoneShimmer {
+    0%, 55% { transform: translateX(-120%); }
+    100% { transform: translateX(120%); }
+}
+
 /*
 ========================================
    FEATURE STRIP
@@ -914,6 +948,7 @@ body.inner-page {
 
 @media (prefers-reduced-motion: reduce) {
     .fade-in, .hero-bg-left, .hero-bg-right, .hero-logo { animation: none; opacity: 1; }
+    .phone-pill::after, .handover .handover-phone::after { animation: none; opacity: 0; }
     .price-card, .btn-book, .leistung-card, .leistung-img { transition: none; }
     .btn-book:active, .mobile-menu-toggle:active,
     .leistung-card:hover, .leistung-card:hover .leistung-img { transform: none; }
