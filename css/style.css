@@ -570,9 +570,64 @@ body.inner-page:has(.booking-hero) { background: transparent; }
     cursor: pointer;
     margin-top: 0.4rem;
 }
-.btn-book { transition: filter 0.2s ease, transform 0.12s ease, box-shadow 0.2s ease; }
-.btn-book:hover { filter: brightness(1.05); box-shadow: 0 6px 18px rgba(0,0,0,0.28); }
-.btn-book:active { transform: translateY(1px); filter: brightness(0.98); box-shadow: 0 2px 8px rgba(0,0,0,0.24); }
+/* Hover fuer alle Buttons: keine Farbwechsel (Gold auf Gold war
+   unlesbar), sondern leichtes Vergroessern plus ein Lichtrand, der um
+   die Form fliesst. --btn-ring setzt die Randfarbe passend zum Grund. */
+@property --btn-angle {
+    syntax: '<angle>';
+    inherits: false;
+    initial-value: 0deg;
+}
+.btn-book,
+.phone-pill {
+    --btn-ring: var(--color-primary-dark);
+    position: relative;
+    isolation: isolate;
+    transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.25s ease;
+}
+.btn-book.btn-green,
+.btn-book.btn-secondary,
+.phone-pill { --btn-ring: #fff3cf; }
+.btn-book::before,
+.phone-pill::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    border-radius: inherit;
+    padding: 2px;
+    background: conic-gradient(from var(--btn-angle),
+        transparent 0 55%, var(--btn-ring) 78%, #ffffff 86%, var(--btn-ring) 94%, transparent 100%);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+    pointer-events: none;
+}
+.btn-book:hover,
+.btn-book:focus-visible,
+.phone-pill:hover,
+.phone-pill:focus-visible {
+    transform: scale(1.05);
+    box-shadow: 0 8px 22px rgba(0,0,0,0.32);
+}
+.btn-book:hover::before,
+.btn-book:focus-visible::before,
+.phone-pill:hover::before,
+.phone-pill:focus-visible::before {
+    opacity: 1;
+    animation: btnRingFlow 2.4s linear infinite;
+}
+.btn-book:active,
+.phone-pill:active { transform: scale(1.02); }
+@keyframes btnRingFlow { to { --btn-angle: 360deg; } }
+/* Schriftfarbe beim Hover festhalten (a:hover wuerde sonst Gold setzen) */
+.btn-book:hover { color: var(--color-primary-dark); }
+.btn-book.btn-secondary:hover { color: var(--color-gold); }
+.btn-book.btn-green:hover,
+.handover .handover-phone:hover,
+.phone-pill:hover { color: var(--color-gold-light); }
 .mobile-menu-toggle:active { transform: translateY(1px); }
 .btn-secondary {
     background: none;
@@ -593,7 +648,7 @@ body.inner-page:has(.booking-hero) { background: transparent; }
     overflow: hidden;
     background: linear-gradient(135deg, #0f5a3e 0%, #083A28 55%, #0c4d35 100%);
     box-shadow: inset 0 1px 0 rgba(235,208,145,0.18), 0 4px 14px rgba(0,0,0,0.25);
-    transition: box-shadow 0.25s ease, border-color 0.25s ease;
+    transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.25s ease, border-color 0.25s ease;
 }
 .phone-pill::after,
 .handover .handover-phone::after,
@@ -1024,6 +1079,10 @@ body.inner-page:has(.booking-hero) { background: transparent; }
     .phone-pill::after, .handover .handover-phone::after, .btn-book.btn-green::after { animation: none; opacity: 0; }
     .mobile-menu-toggle .bar { transition: none; }
     .btn-book, .leistung-card, .leistung-img { transition: none; }
+    .btn-book:hover::before, .btn-book:focus-visible::before,
+    .phone-pill:hover::before, .phone-pill:focus-visible::before { animation: none; }
+    .btn-book:hover, .btn-book:focus-visible, .phone-pill:hover, .phone-pill:focus-visible,
+    .phone-pill:active,
     .btn-book:active, .mobile-menu-toggle:active,
     .leistung-card:hover, .leistung-card:hover .leistung-img { transform: none; }
 }
