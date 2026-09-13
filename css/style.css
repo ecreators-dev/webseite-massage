@@ -644,6 +644,32 @@ body.inner-page {
 
 .inner-footer { margin-top: 1rem; width: 100%; text-align: left; }
 
+/* Ueber uns: Foto von Anna links, Text rechts; mobil Foto oben */
+.about-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    gap: clamp(1.5rem, 4vw, 4rem);
+    align-items: center;
+    text-align: left;
+}
+.about-photo { margin: 0; display: flex; justify-content: center; }
+.about-photo img {
+    display: block;
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+    border: 1px solid rgba(217,176,95,0.45);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.35);
+    object-fit: cover;
+}
+.about-hours { margin-top: 0.8rem; color: var(--color-gold-light); }
+.social-row a { text-decoration: underline; text-underline-offset: 3px; }
+@media (max-width: 900px) {
+    .about-grid { grid-template-columns: 1fr; }
+    .about-photo img { max-height: 420px; }
+}
+
 /*
 ========================================
    ABOUT PAGE
@@ -1300,9 +1326,15 @@ body.inner-page {
     }
     .about-lotus { width: clamp(38px, 6vh, 60px); margin-bottom: 0.2rem; }
     .about-page .legal-title { font-size: clamp(1.5rem, 4vh, 2.2rem); margin: 0 0 clamp(0.4rem, 1.6vh, 1.5rem); }
-    .about-page .about-wrap > section:not(.about-cta) {
-        columns: 2;
-        column-gap: clamp(2rem, 4vw, 4.5rem);
+    .about-grid { flex: 1 1 auto; min-height: 0; }
+    .about-photo img { max-height: calc(100dvh - 12rem); }
+    /* Niedrige Fenster (z. B. 1024x600): Lotus weg, Abstaende enger */
+    @media (max-height: 680px) {
+        .about-lotus { display: none; }
+        .about-page .about-wrap h2 { margin: 0.45rem 0 0.2rem; }
+        .about-page .about-wrap p { font-size: 0.84rem; line-height: 1.5; }
+        .about-hours { margin-top: 0.4rem; }
+        .about-cta { margin-top: 0.5rem; }
     }
     .about-page .about-wrap p { max-width: none; font-size: clamp(0.86rem, 1.85vh, 1rem); break-inside: avoid; }
     .about-page .about-lead { font-size: clamp(0.95rem, 2vh, 1.1rem); }
@@ -1351,7 +1383,8 @@ body.inner-page {
        dafuer mehr Hoehe je Element. --- */
     @media (orientation: portrait) {
         .leistungen-list { grid-template-columns: repeat(2, 1fr); }
-        .about-page .about-wrap > section:not(.about-cta) { columns: 1; }
+        .about-grid { grid-template-columns: 1fr; }
+        .about-photo { display: none; }
         .legal-page .legal-wrap {
             grid-template-columns: 1fr;
             grid-template-rows: auto auto minmax(0, 1fr) minmax(0, 1fr) auto;
