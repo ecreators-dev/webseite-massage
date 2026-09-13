@@ -789,11 +789,48 @@ body.inner-page {
     left: 62%;
     top: 40%;
     width: clamp(260px, 25vw, 440px);
-    height: auto;
     transform: translate(-50%, -50%);
     pointer-events: none;
     opacity: 0;
     animation: heroLogoIn 1.1s ease-out 0.55s forwards;
+}
+/* Schlagschatten ueber drop-shadow: folgt dem Alphakanal, also der
+   Kontur der Marke statt dem Bildrechteck. Zwei Stufen - eng und dunkel
+   fuer Kante, weit und weich fuer Tiefe. */
+.hero-logo img {
+    display: block;
+    width: 100%;
+    height: auto;
+    filter:
+        drop-shadow(0 3px 3px rgba(0,0,0,0.55))
+        drop-shadow(0 12px 22px rgba(0,0,0,0.45));
+}
+/* Schimmer: ein heller Streifen, begrenzt auf die GOLDENEN Pixel der Marke.
+   Die Maske (anna-logo-gold-mask.webp) ist aus dem Logo abgeleitet und
+   enthaelt nur Gold; mit der vollen Logoform als Maske wurden auch die
+   dunkelgruenen Fuellungen milchig aufgehellt.
+   Animiert wird background-position, nicht transform - sonst wanderte
+   die Maske mit und der Streifen liefe ueber das Gruen hinaus. */
+.hero-logo::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(110deg,
+        transparent 38%,
+        rgba(255,240,200,0.0) 44%,
+        rgba(255,240,200,0.75) 50%,
+        rgba(255,240,200,0.0) 56%,
+        transparent 62%);
+    background-size: 250% 100%;
+    background-position: 130% 0;
+    -webkit-mask: url('../images/brand/anna-logo-gold-mask.webp') center / 100% 100% no-repeat;
+    mask: url('../images/brand/anna-logo-gold-mask.webp') center / 100% 100% no-repeat;
+    mix-blend-mode: screen;
+    animation: logoShimmer 6s ease-in-out 1.8s infinite;
+}
+@keyframes logoShimmer {
+    0%, 60% { background-position: 130% 0; }
+    100% { background-position: -30% 0; }
 }
 @keyframes heroLogoIn {
     from { opacity: 0; transform: translate(-50%, -46%); }
@@ -957,6 +994,7 @@ body.inner-page {
 
 @media (prefers-reduced-motion: reduce) {
     .fade-in, .hero-bg-left, .hero-bg-right, .hero-logo { animation: none; opacity: 1; }
+    .hero-logo::after { animation: none; opacity: 0; }
     .phone-pill::after, .handover .handover-phone::after, .btn-book.btn-green::after { animation: none; opacity: 0; }
     .price-card, .btn-book, .leistung-card, .leistung-img { transition: none; }
     .btn-book:active, .mobile-menu-toggle:active,
