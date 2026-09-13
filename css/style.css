@@ -274,21 +274,16 @@ body.inner-page {
     gap: 10px;
     flex: 0 0 auto;
 }
-.site-logo-img { width: 44px; mix-blend-mode: screen; }
-.site-logo-text {
-    font-family: var(--font-heading);
-    color: var(--color-gold);
-    font-size: 1.2rem;
-    letter-spacing: 0.08em;
-    line-height: 1.15;
+/* Offizielle Marke im Original, nur skaliert. Hoehe statt Breite, damit
+   die Kopfzeile ihr Mass behaelt. */
+.site-logo-img {
+    display: block;
+    height: 76px;
+    width: auto;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.45));
 }
-.site-logo-text small {
-    font-family: var(--font-body);
-    color: var(--color-text-light);
-    font-size: 0.7rem;
-    letter-spacing: 0.12em;
-    opacity: 0.85;
-}
+@media (max-width: 900px) { .site-logo-img { height: 62px; } }
+@media (max-width: 560px) { .site-logo-img { height: 52px; } }
 .site-nav {
     display: flex;
     align-items: center;
