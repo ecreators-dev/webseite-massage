@@ -801,6 +801,37 @@ body.inner-page {
 .hero-feature-icon svg { width: 26px; height: 26px; fill: none; stroke: var(--color-gold); stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; }
 .hero-cta { width: auto; align-self: flex-start; padding: 0 1.8rem; min-height: 52px; box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
 
+/* Startseite im Bildschirm-fuellenden Raster: Die Groessen oben skalieren
+   nur mit der Breite. Bei niedrigen Fenstern (z. B. 1920x770 nach Abzug
+   von Browserleisten) wuchs der erste Bildschirm dadurch um bis zu 70px
+   ueber den Rand. Hier nimmt jede Groesse den kleineren Wert aus Breite
+   und Hoehe, und die Hoehe ist fest an das Fenster gebunden. */
+@media (min-width: 901px) and (min-height: 600px) {
+    .hero { height: 100vh; height: 100dvh; min-height: 0; }
+    .hero-header { padding-block: clamp(0.35rem, 1.2vh, 1rem); }
+    .hero-content {
+        min-height: 0;
+        padding: clamp(0.3rem, 1vh, 1rem) 0 clamp(0.6rem, 2.5vh, 3rem) clamp(1.5rem, 5vw, 5rem);
+    }
+    .hero-eyebrow { font-size: clamp(0.68rem, 1.4vh, 0.8rem); }
+    .hero-title {
+        font-size: clamp(2.2rem, min(5.2vw, 8.4vh), 5rem);
+        margin: clamp(0.3rem, 1.2vh, 0.8rem) 0 clamp(0.2rem, 0.9vh, 0.6rem);
+    }
+    .hero-slogan { font-size: clamp(0.95rem, min(1.6vw, 2.6vh), 1.45rem); }
+    .hero-text {
+        font-size: clamp(0.85rem, min(1.1vw, 1.95vh), 1.05rem);
+        margin-top: clamp(0.3rem, 1.2vh, 0.8rem);
+    }
+    .hero-features { margin: clamp(0.7rem, 2.6vh, 1.8rem) 0 clamp(0.8rem, 2.8vh, 2rem); }
+    .hero-features li { font-size: clamp(0.72rem, 1.6vh, 0.85rem); gap: clamp(0.25rem, 0.8vh, 0.5rem); }
+    .hero-feature-icon { width: clamp(40px, 6.2vh, 56px); height: clamp(40px, 6.2vh, 56px); }
+    .hero-feature-icon svg { width: clamp(20px, 2.9vh, 26px); height: clamp(20px, 2.9vh, 26px); }
+    .hero-cta { min-height: clamp(42px, 5.8vh, 52px); }
+    .hero-legal { padding-block: clamp(0.25rem, 0.8vh, 0.55rem); }
+    .hero-legal .legal-link { min-height: 28px; }
+}
+
 /* Offizielle Wortbildmarke (Ladenschild, Visitenkarte, Preisliste) in der
    freien Gruenflaeche zwischen Text und Fotobogen. Die Datei ist freigestellt,
    der Schimmer halbtransparent - er traegt auf dem dunklen Gruen selbst. */
