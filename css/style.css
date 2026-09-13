@@ -749,7 +749,7 @@ body.inner-page {
     width: min(46vw, 620px);
     padding: 1rem 0 3rem clamp(1.5rem, 5vw, 5rem);
 }
-.hero-eyebrow, .section-eyebrow {
+.hero-eyebrow {
     font-size: 0.8rem;
     font-weight: 600;
     letter-spacing: 0.22em;
@@ -860,63 +860,7 @@ body.inner-page {
     to { opacity: 1; transform: translate(-50%, -50%); }
 }
 
-/* Sections below the hero */
-.landing-section {
-    padding: clamp(3rem, 7vw, 5.5rem) 1.5rem;
-    background-size: cover;
-    background-position: center;
-}
-.services-section { background-image: url('../images/backgrounds/bg-green-leaves.webp'); background-color: var(--color-primary); }
-.contact-section { background-image: url('../images/backgrounds/bg-green-texture.webp'); background-color: var(--color-primary-dark); border-top: 1px solid rgba(217,176,95,0.25); }
-.section-inner { max-width: 1140px; margin: 0 auto; text-align: center; }
-.section-title {
-    font-family: var(--font-heading);
-    color: var(--color-gold);
-    font-size: clamp(1.8rem, 3.6vw, 2.6rem);
-    letter-spacing: 0.05em;
-    margin: 0.5rem 0 2.2rem;
-}
-
-.price-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.4rem;
-    text-align: left;
-}
-.price-card {
-    position: relative;
-    background: rgba(3,30,21,0.72);
-    border: 1px solid rgba(217,176,95,0.4);
-    border-radius: 14px;
-    padding: 1.4rem 1.4rem 1.5rem;
-    transition: transform 0.3s ease, border-color 0.3s ease;
-}
-.price-card:hover { transform: translateY(-3px); border-color: var(--color-gold); }
-.price-card-head {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    font-size: 0.9rem;
-    opacity: 0.95;
-}
-.price-card-head strong {
-    font-family: var(--font-heading);
-    font-size: 1.25rem;
-    color: var(--color-primary-dark);
-    background: linear-gradient(90deg, var(--color-gold-light), var(--color-gold));
-    border-radius: 999px;
-    padding: 4px 16px;
-    white-space: nowrap;
-}
-.price-card h3 {
-    font-family: var(--font-heading);
-    color: var(--color-gold-light);
-    font-size: 1.15rem;
-    margin: 0.9rem 0 0.5rem;
-}
-.price-card p { font-size: 0.92rem; line-height: 1.55; opacity: 0.88; }
-.price-card-premium { border-color: var(--color-gold); box-shadow: 0 0 0 1px rgba(217,176,95,0.35) inset; }
+/* Auszeichnung "Meist gewaehlt" / "Empfohlen" auf den Leistungskarten */
 .price-tag {
     position: absolute;
     top: -12px;
@@ -932,46 +876,7 @@ body.inner-page {
     padding: 4px 12px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
-.section-cta { margin-top: 2.4rem; display: flex; justify-content: center; }
-.section-cta .btn-book { width: auto; padding: 0 2rem; }
-.section-link-all {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    margin-top: 1.8rem;
-    color: var(--color-gold);
-    font-weight: 600;
-    font-size: 0.95rem;
-    padding: 8px 4px;
-}
-
-.contact-inner {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2.5rem;
-    align-items: center;
-    text-align: left;
-}
-.contact-inner .section-title { margin-bottom: 1rem; }
 .contact-lead { font-size: 1.05rem; line-height: 1.6; opacity: 0.9; max-width: 38ch; }
-.contact-call { width: auto; display: inline-flex; padding: 0 1.8rem; margin-top: 1.4rem; }
-.contact-section .contact-list li { font-size: 1.05rem; padding: 8px 0; white-space: normal; }
-.contact-section .c-icon { width: 30px; height: 30px; padding: 6px; }
-
-.landing-footer {
-    background: #031a12;
-    border-top: 1px solid rgba(217,176,95,0.3);
-    padding: 1.5rem;
-    text-align: center;
-}
-.landing-footer-tagline {
-    font-size: 0.75rem;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--color-gold);
-    margin-bottom: 0.6rem;
-}
-.landing-footer .inner-footer { text-align: center; }
 
 /* Tablet & phone: photo on top, text below on green */
 @media (max-width: 900px) {
@@ -991,15 +896,11 @@ body.inner-page {
         background: url('../images/backgrounds/bg-green-texture.webp') center / cover, var(--color-primary-dark);
     }
     .hero-logo { display: none; }
-    .price-grid { grid-template-columns: 1fr 1fr; }
-    .contact-inner { grid-template-columns: 1fr; gap: 1.5rem; }
 }
 @media (max-width: 560px) {
     .hero-features { gap: 0.8rem; justify-content: space-between; }
     .hero-feature-icon { width: 48px; height: 48px; }
     .hero-cta { align-self: stretch; }
-    .price-grid { grid-template-columns: 1fr; }
-    .landing-footer-tagline { letter-spacing: 0.15em; }
 }
 /* Phones in landscape: hero photo as slim banner */
 @media (orientation: landscape) and (max-height: 520px) {
@@ -1019,7 +920,7 @@ body.inner-page {
     .fade-in, .hero-bg-left, .hero-bg-right, .hero-logo { animation: none; opacity: 1; }
     .hero-logo::after { animation: none; opacity: 0; }
     .phone-pill::after, .handover .handover-phone::after, .btn-book.btn-green::after { animation: none; opacity: 0; }
-    .price-card, .btn-book, .leistung-card, .leistung-img { transition: none; }
+    .btn-book, .leistung-card, .leistung-img { transition: none; }
     .btn-book:active, .mobile-menu-toggle:active,
     .leistung-card:hover, .leistung-card:hover .leistung-img { transform: none; }
 }
