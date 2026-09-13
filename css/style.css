@@ -168,6 +168,32 @@ h1, h2, h3 { text-wrap: balance; }
 }
 .panel-footer .copyright { margin-left: 12px; }
 
+/* Rechtliche Links: Impressum, Datenschutz, Nutzungsbedingungen getrennt,
+   damit jedes Ziel direkt erreichbar und einzeln erkennbar ist. */
+.legal-links { display: inline-flex; flex-wrap: wrap; align-items: center; column-gap: 0.9rem; row-gap: 0; }
+.legal-links .legal-link { color: var(--color-gold); text-decoration: underline; text-underline-offset: 3px; }
+.legal-links .legal-link:hover { color: var(--color-gold-light); }
+
+/* Startseite: Rechtsleiste am unteren Rand des ersten Bildschirms, damit
+   die Pflichtangaben ohne Scrollen sichtbar sind. */
+.hero-legal {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.3rem 1.5rem;
+    padding: 0.55rem clamp(1.5rem, 5vw, 5rem) 0.7rem;
+    font-size: 0.8rem;
+    color: rgba(242,236,220,0.8);
+    background: linear-gradient(to top, rgba(3,26,18,0.9), rgba(3,26,18,0));
+}
+.hero-legal .legal-link { display: inline-flex; align-items: center; min-height: 32px; }
+@media (max-width: 900px) {
+    .hero-legal { order: 4; background: #031a12; justify-content: center; text-align: center; }
+}
+
 /* Placeholder marker (used on legal page) */
 .placeholder {
     color: var(--color-gold-light);
