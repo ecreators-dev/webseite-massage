@@ -437,7 +437,7 @@ body.inner-page {
 .booking-hero h1 { text-wrap: nowrap; }
 @media (max-width: 900px) { .booking-hero h1 { text-wrap: balance; } }
 .booking-hero-lotus {
-    width: 62px;
+    width: clamp(90px, 9vw, 130px);
     height: auto;
     margin-bottom: -0.2rem;
     margin-left: -6px;
@@ -1318,7 +1318,19 @@ body.inner-page:has(.booking-hero) { background: transparent; }
     }
     .booking-hero h1 { font-size: clamp(1.6rem, 4.2vh, 2.8rem); }
     .booking-hero p { font-size: clamp(0.86rem, 1.85vh, 1.05rem); }
-    .booking-hero-lotus { width: clamp(36px, 6vh, 62px); }
+    /* Lotus gross links neben Titel und Unterzeile: nutzt die freie Breite
+       statt zusaetzlicher Hoehe */
+    .booking-hero-text {
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr);
+        column-gap: clamp(1rem, 2vw, 2rem);
+        align-items: center;
+    }
+    .booking-hero-lotus {
+        grid-row: 1 / span 2;
+        width: clamp(110px, 20vh, 200px);
+        margin: 0;
+    }
     .handover {
         flex: 1 1 auto;
         min-height: 0;
