@@ -287,4 +287,19 @@ function initBookingAssistant() {
         confirmationPanel.hidden = false;
         confirmationPanel.scrollIntoView({ behavior: 'smooth', block: 'center' });
     });
+
+    // Die Ausblendung am unteren Listenrand nur zeigen, wenn es dort
+    // tatsaechlich weitergeht - sonst wirkt die letzte Karte beschaedigt.
+    const serviceList = document.querySelector('.service-list-booking');
+    if (serviceList) {
+        const syncScrollHint = () => {
+            serviceList.classList.toggle(
+                'is-scrollable',
+                serviceList.scrollHeight > serviceList.clientHeight + 1
+            );
+        };
+        syncScrollHint();
+        window.addEventListener('resize', syncScrollHint);
+        if ('ResizeObserver' in window) new ResizeObserver(syncScrollHint).observe(serviceList);
+    }
 }

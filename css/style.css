@@ -379,8 +379,9 @@ body.inner-page {
     position: relative;
 }
 .booking-hero-lotus {
-    width: 46px;
-    margin-bottom: 0.4rem;
+    width: 62px;
+    margin-bottom: -0.2rem;
+    margin-left: -6px;
     mix-blend-mode: screen;
 }
 .booking-hero h1 {
@@ -390,7 +391,9 @@ body.inner-page {
     letter-spacing: 0.03em;
     margin-bottom: 0.4rem;
 }
-.booking-hero p { font-size: 1.05rem; opacity: 0.9; max-width: 46ch; }
+/* text-wrap: balance verteilt die zwei Zeilen gleichmaessig, statt das
+   letzte Wort allein stehen zu lassen. */
+.booking-hero p { font-size: 1.05rem; opacity: 0.9; max-width: 46ch; text-wrap: balance; }
 
 .booking-steps {
     display: flex;
@@ -430,23 +433,28 @@ body.inner-page {
    BOOKING LAYOUT (main grid + side photo)
 ========================================
 */
+/* Die drei Schritte nehmen die volle Breite und stehen damit mittig;
+   das Foto folgt darunter als Band in seinem eigenen Querformat, statt
+   als schmale Spalte, unter der die halbe Seite leer bleibt. */
 .booking-layout {
-    display: grid;
-    grid-template-columns: 1fr 280px;
-    gap: 2rem;
-    align-items: start;
+    display: block;
 }
+/* Die drei Schritte stehen nebeneinander und sollen auch so enden:
+   gleiche Hoehe, der Inhalt waechst in den verfuegbaren Raum. */
 .booking-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1.4rem;
-    align-items: start;
+    align-items: stretch;
 }
 .booking-card {
     background: rgba(0,0,0,0.22);
     border: 1px solid rgba(217,176,95,0.25);
     border-radius: 14px;
     padding: 1.4rem;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
 }
 .booking-card h2 {
     font-family: var(--font-body);
@@ -481,10 +489,15 @@ body.inner-page {
     display: flex;
     flex-direction: column;
     gap: 0.7rem;
-    max-height: 460px;
+    flex: 1 1 auto;
+    min-height: 260px;
     overflow-y: auto;
     padding-right: 6px;
     scroll-behavior: smooth;
+}
+/* Nur wenn die Liste wirklich laenger ist als ihr Fenster: ausblenden
+   statt hart abschneiden. Die Klasse setzt js/main.js. */
+.service-list-booking.is-scrollable {
     -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 2.5rem), transparent 100%);
     mask-image: linear-gradient(to bottom, #000 calc(100% - 2.5rem), transparent 100%);
 }
@@ -504,7 +517,18 @@ body.inner-page {
 }
 .service-option input:focus-visible + .service-option-body { outline: 2px solid var(--color-gold-light); }
 .service-option-body h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 2px; }
-.service-option-body p { font-size: 0.85rem; opacity: 0.8; margin-bottom: 0.5rem; }
+/* Beim Auswaehlen zaehlen Name, Dauer und Preis. Die ausfuehrliche
+   Beschreibung steht auf der Leistungsseite, hier genuegt der Anriss —
+   so passen mehr Angebote ins Sichtfeld. */
+.service-option-body p {
+    font-size: 0.85rem;
+    opacity: 0.8;
+    margin-bottom: 0.5rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
 .duration-chips { display: flex; flex-wrap: wrap; gap: 6px; }
 .duration-chip {
     font-size: 0.78rem;
@@ -567,10 +591,14 @@ body.inner-page {
 .calendar-day.selected { background: var(--color-gold); color: var(--color-primary-dark); font-weight: 700; }
 .calendar-day.empty { visibility: hidden; }
 
-/* Shown until a date is picked, so the card is never simply blank. */
+/* Shown until a date is picked, so the card is never simply blank.
+   Sitzt direkt unter dem Kalender; der Rest der Karte bleibt ruhig. */
 .slots-empty {
-    margin-top: 1.2rem;
-    padding: 0.9rem 1rem;
+    margin: 1.2rem 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
     border: 1px dashed rgba(217,176,95,0.28);
     border-radius: 10px;
     font-size: 0.85rem;
@@ -740,14 +768,26 @@ body.inner-page {
    BOOKING SIDE PHOTO COLUMN
 ========================================
 */
-.booking-side { position: sticky; top: 1.5rem; }
+.booking-side {
+    display: grid;
+    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+    gap: 2.5rem;
+    align-items: center;
+    margin: 3rem 0 0.5rem;
+}
 .booking-side-photo {
     position: relative;
     border-radius: 14px;
     overflow: hidden;
     border: 1px solid rgba(217,176,95,0.3);
 }
-.booking-side-photo img:first-child { width: 100%; height: 320px; object-fit: cover; display: block; }
+.booking-side-photo img:first-child {
+    width: 100%;
+    aspect-ratio: 3 / 2;
+    height: auto;
+    object-fit: cover;
+    display: block;
+}
 .booking-side-figure {
     position: absolute;
     bottom: -6px; right: -10px;
@@ -760,15 +800,16 @@ body.inner-page {
     font-family: var(--font-heading);
     font-style: italic;
     color: var(--color-gold-light);
-    text-align: center;
-    font-size: 1.2rem;
-    margin-top: 1rem;
-    line-height: 1.4;
+    text-align: left;
+    font-size: clamp(1.5rem, 2.4vw, 2.1rem);
+    margin-top: 0;
+    line-height: 1.3;
 }
 .booking-side-script {
-    text-align: center;
-    margin-top: 0.6rem;
+    text-align: left;
+    margin-top: 0.8rem;
     white-space: normal;
+    font-size: clamp(0.95rem, 1.2vw, 1.1rem);
 }
 
 /*
@@ -797,9 +838,9 @@ body.inner-page {
    RESPONSIVE: BOOKING / ABOUT PAGES
 ========================================
 */
-@media (max-width: 1080px) {
-    .booking-layout { grid-template-columns: 1fr; }
-    .booking-side { position: static; max-width: 420px; margin: 0 auto 1.5rem; }
+@media (max-width: 760px) {
+    .booking-side { grid-template-columns: 1fr; gap: 1.2rem; }
+    .booking-side-quote, .booking-side-script { text-align: center; }
 }
 @media (max-width: 900px) {
     .booking-grid { grid-template-columns: 1fr 1fr; }
@@ -819,8 +860,6 @@ body.inner-page {
 @media (orientation: landscape) and (max-height: 520px) {
     .booking-grid { grid-template-columns: 1fr 1fr; }
     .booking-grid .booking-card:last-child { grid-column: 1 / -1; }
-    .booking-layout { grid-template-columns: 1fr; }
-    .booking-side { position: static; max-width: 360px; margin: 0 auto 1rem; }
     .site-header { padding: 0.6rem 1rem; }
 }
 
