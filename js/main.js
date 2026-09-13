@@ -61,7 +61,43 @@ document.addEventListener('DOMContentLoaded', () => {
     if (stage && flip && slogan) {
         const desktop = window.matchMedia('(min-width: 901px)');
         const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
-        const fullText = slogan.dataset.text || '';
+        // Annas Satz wechselt stuendlich: Aus Datum und Stunde wird ein
+        // fester Zufallswert, also bleibt der Satz innerhalb einer Stunde
+        // gleich (auch beim Neuladen). Saetze mit Feierabend/abends kommen
+        // nur ab 17 Uhr in Frage.
+        const sayings = [
+            { text: 'Na, ist dein Nacken fest oder sind deine Schultern verspannt? Komm zu mir.' },
+            { text: 'Hast du heute wieder viel zu viel um die Ohren? Komm zu mir und gönn dir eine Pause.' },
+            { text: 'Immer für alle da und selbst kaum Zeit für dich? Komm einfach zu mir.' },
+            { text: 'Feierabend, aber dein Kopf kommt noch nicht zur Ruhe? Komm zu mir.', evening: true },
+            { text: 'War dein Arbeitstag wieder lang? Komm vorbei, ich kümmere mich um dich.', evening: true },
+            { text: 'Müde, verspannt und trotzdem noch unruhig? Komm zu mir und schalte einfach mal ab.' },
+            { text: 'Sitzt du den ganzen Tag bei der Arbeit? Komm vorbei, dein Rücken wird es dir danken.' },
+            { text: 'Läuft bei dir gerade alles gleichzeitig? Komm zu mir und gönn dir eine kleine Pause.' },
+            { text: 'Du kümmerst dich um alle anderen? Dann bist du jetzt mal dran. Komm zu mir.' },
+            { text: 'Kannst du abends nicht richtig abschalten? Komm zu mir und lass einfach mal los.', evening: true }
+        ];
+        const pickSaying = () => {
+            const now = new Date();
+            const hour = now.getHours();
+            const isEvening = hour >= 17 || hour < 4;
+            const pool = sayings.filter(s => isEvening || !s.evening);
+            const key = `${now.getFullYear()}-${now.getMonth()}-${now.getDate()}-${hour}`;
+            let hash = 2166136261;
+            for (const ch of key) hash = Math.imul(hash ^ ch.charCodeAt(0), 16777619);
+            return pool[(hash >>> 0) % pool.length].text;
+        };
+        // Jede weitere Drehung zeigt einen anderen Satz: zufaellig aus den
+        // zur Tageszeit passenden, nie zweimal hintereinander derselbe.
+        let fullText = '';
+        let shown = 0;
+        const nextSaying = () => {
+            if (shown++ === 0) return pickSaying();
+            const hour = new Date().getHours();
+            const isEvening = hour >= 17 || hour < 4;
+            const pool = sayings.filter(s => (isEvening || !s.evening) && s.text !== fullText);
+            return pool[Math.floor(Math.random() * pool.length)].text;
+        };
         let run = 0;          // erhoeht sich bei jeder Unterbrechung
         let hovering = false;
         let timer = null;
@@ -90,6 +126,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         const type = async (id) => {
+            fullText = nextSaying();   // erste Drehung: Satz der Stunde, danach wechselnd
             if (reduced.matches) { slogan.textContent = fullText; return; }
             slogan.textContent = '';
             slogan.classList.add('is-typing');

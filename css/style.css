@@ -1012,7 +1012,7 @@ body.inner-page:has(.booking-hero) { background: transparent; }
     position: absolute;
     right: 4%;
     top: 0;
-    height: 86%;
+    height: 78%;
     width: auto;
     filter:
         drop-shadow(0 18px 24px rgba(0,0,0,0.45))
@@ -1025,11 +1025,22 @@ body.inner-page:has(.booking-hero) { background: transparent; }
     left: 0;
     right: 0;
     bottom: 0;
-    min-height: 1.4em;
+    /* Platz fuer bis zu drei Zeilen, damit die Buehne beim Tippen nicht springt */
+    min-height: 4.2em;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    text-wrap: balance;
     text-align: center;
-    font-family: var(--font-heading);
-    font-size: clamp(1rem, 1.35vw, 1.4rem);
-    line-height: 1.3;
+    font-family: var(--font-body);
+    font-style: italic;
+    font-size: clamp(0.95rem, 1.1vw, 1.2rem);
+    line-height: 1.4;
+    /* ruhiger Grund, damit der Satz ueber Foto und Kerzen lesbar bleibt */
+    padding: 0.5rem 0.9rem;
+    border-radius: 10px;
+    background: rgba(5,44,32,0.82);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.35);
     color: var(--color-gold-light);
     text-shadow: 0 2px 10px rgba(0,0,0,0.6);
 }
