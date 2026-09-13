@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /rechtliches.html
+
+Sitemap: https://www.annavietnam-massage.de/sitemap.xml
