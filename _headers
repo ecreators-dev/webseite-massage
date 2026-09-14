@@ -1,0 +1,14 @@
+# CSS und JS immer beim Server nachfragen, statt sie auf Verdacht lange im
+# Browser zu behalten. "no-cache" heisst nicht "nicht speichern", sondern
+# "vor jeder Nutzung beim Server nachfragen, ob es noch aktuell ist" - der
+# Server antwortet dann meist nur mit "ja, passt" (304), ohne die Datei neu
+# zu uebertragen. Ohne diese Regel konnte ein Browser eine alte main.js
+# oder style.css laengere Zeit unveraendert weiterverwenden.
+/css/*
+  Cache-Control: no-cache
+
+/js/*
+  Cache-Control: no-cache
+
+/*.html
+  Cache-Control: no-cache

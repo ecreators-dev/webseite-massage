@@ -1,0 +1,58 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
+
+locale: "de"
+
+collections:
+  - name: "start"
+    label: "Startseite"
+    files:
+      - file: "content/home.json"
+        label: "Inhalte"
+        name: "home"
+        fields:
+          - { label: "Überschrift", name: "heroTitle", widget: "string" }
+          - { label: "Unterzeile", name: "heroTitleSub", widget: "string" }
+          - { label: "Text", name: "heroText", widget: "text" }
+          - { label: "Foto (rechts im Hintergrund)", name: "heroImage", widget: "image" }
+          - { label: "Preis-Hinweis", name: "factPrice", widget: "string", hint: "z. B. \"ab 30 €\"" }
+          - { label: "Adresse", name: "factAddress", widget: "string" }
+          - { label: "Öffnungszeiten", name: "factHours", widget: "string" }
+
+  - name: "leistungen"
+    label: "Meine Massagen"
+    files:
+      - file: "content/leistungen.json"
+        label: "Massagen"
+        name: "leistungen"
+        fields:
+          - { label: "Einleitungstext", name: "intro", widget: "text" }
+          - label: "Massagen"
+            name: "services"
+            widget: "list"
+            summary: "{{title}} ({{price}})"
+            fields:
+              - { label: "Interne Kennung (nicht ändern)", name: "id", widget: "string" }
+              - { label: "Hervorgehoben (großes Preisschild)", name: "featured", widget: "boolean", default: false }
+              - { label: "Kurzname (für die kleinen Karten oben)", name: "shortTitle", widget: "string" }
+              - { label: "Titel", name: "title", widget: "string" }
+              - { label: "Dauer", name: "time", widget: "string", hint: "z. B. \"60 Min.\"" }
+              - { label: "Preis", name: "price", widget: "string", hint: "z. B. \"60 €\"" }
+              - { label: "Beschreibung", name: "desc", widget: "text" }
+              - { label: "Foto", name: "image", widget: "image" }
+
+  - name: "ueber-mich"
+    label: "Über mich"
+    files:
+      - file: "content/ueber-mich.json"
+        label: "Inhalte"
+        name: "ueber-mich"
+        fields:
+          - { label: "Foto", name: "photo", widget: "image" }
+          - { label: "Einleitung", name: "lead", widget: "text" }
+          - { label: "Abschnitt \"Gelernt in Vietnam\"", name: "vietnamText", widget: "text" }
+          - { label: "Abschnitt \"Mein Schwerpunkt\"", name: "schwerpunktText", widget: "text" }
