@@ -2,8 +2,17 @@ backend:
   name: git-gateway
   branch: main
 
+# Nur ein Rueckfall fuer neue, noch nicht einsortierte Bilder. Die
+# vorhandenen Fotos liegen in eigenen Ordnern (images/hero, images/leistungen,
+# images/about) - die Bildfelder unten zeigen ueber ein eigenes media_folder
+# je Feld genau dorthin. Ohne das haette Decap fuer bestehende Fotos die
+# falsche Adresse vermutet und nur ein kaputtes Vorschau-Symbol gezeigt.
 media_folder: "images/uploads"
 public_folder: "/images/uploads"
+
+logo:
+  src: "/images/brand/anna-logo-480.webp"
+  show_in_header: true
 
 locale: "de"
 
@@ -18,7 +27,7 @@ collections:
           - { label: "Überschrift", name: "heroTitle", widget: "string" }
           - { label: "Unterzeile", name: "heroTitleSub", widget: "string" }
           - { label: "Text", name: "heroText", widget: "text" }
-          - { label: "Foto (rechts im Hintergrund)", name: "heroImage", widget: "image" }
+          - { label: "Foto (rechts im Hintergrund)", name: "heroImage", widget: "image", media_folder: "images/hero", public_folder: "/images/hero" }
           - { label: "Preis-Hinweis", name: "factPrice", widget: "string", hint: "z. B. \"ab 30 €\"" }
           - { label: "Adresse", name: "factAddress", widget: "string" }
           - { label: "Öffnungszeiten", name: "factHours", widget: "string" }
@@ -43,7 +52,7 @@ collections:
               - { label: "Dauer", name: "time", widget: "string", hint: "z. B. \"60 Min.\"" }
               - { label: "Preis", name: "price", widget: "string", hint: "z. B. \"60 €\"" }
               - { label: "Beschreibung", name: "desc", widget: "text" }
-              - { label: "Foto", name: "image", widget: "image" }
+              - { label: "Foto", name: "image", widget: "image", media_folder: "images/leistungen", public_folder: "/images/leistungen" }
 
   - name: "ueber-mich"
     label: "Über mich"
@@ -52,7 +61,7 @@ collections:
         label: "Inhalte"
         name: "ueber-mich"
         fields:
-          - { label: "Foto", name: "photo", widget: "image" }
+          - { label: "Foto", name: "photo", widget: "image", media_folder: "images/about", public_folder: "/images/about" }
           - { label: "Einleitung", name: "lead", widget: "text" }
           - { label: "Abschnitt \"Gelernt in Vietnam\"", name: "vietnamText", widget: "text" }
           - { label: "Abschnitt \"Mein Schwerpunkt\"", name: "schwerpunktText", widget: "text" }
