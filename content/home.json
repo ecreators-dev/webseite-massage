@@ -1,9 +1,9 @@
 {
-  "heroTitle": "Ich bin Anna",
-  "heroTitleSub": "Ihre Masseurin in Heilbronn",
-  "heroText": "Ich habe in Vietnam massieren gelernt und nehme mir Zeit für Sie – mit viel Gefühl für Rücken, Nacken und Schultern.",
+  "heroTitle": "Hi, ich bin Anna",
+  "heroTitleSub": "Willkommen in meinem Massage-Studio in Heilbronn",
+  "heroText": "Ich habe in Vietnam massieren gelernt und nehme mir Zeit für Sie – Ich weiß genau worauf es beim Massieren ankommt. Gefühlvolle Massagen für ihren Rücken, Nacken und Schultern. Schauen sie sich gerne meine Angebote an. Ich freue mich auf ihren Besuch.",
   "heroImage": "images/hero/hero-massage.webp",
-  "factPrice": "ab 30 €",
-  "factAddress": "Sichererstraße 90, Heilbronn",
-  "factHours": "Mo–Sa 10–20 Uhr"
+  "factPrice": "Massagen ab 30 € (zzgl. Mehrwertsteuer)",
+  "factAddress": "Sichererstraße 90, Heilbronn (Im Hof)",
+  "factHours": "Mo - Sa 10 - 20 Uhr"
 }
