@@ -16,3 +16,9 @@ regex_beispiel_anja.java
 images/ChatGPT Image *
 images/WhatsApp Image *
 images/Screenshot *
+
+# Ungenutzte Rohbilder, lokal archiviert
+_archiv-bilder/
+images/anna_profil.png
+deploy/
+images/anna_freigestellt*.png
