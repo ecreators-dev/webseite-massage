@@ -893,6 +893,15 @@ body.inner-page:has(.booking-hero) { background: transparent; }
     color: var(--color-text-light);
     max-width: 38ch;
 }
+/* Zweite Titelzeile: kleiner, damit sie nicht umbricht */
+.hero-title-sub {
+    display: block;
+    margin-top: 0.15em;
+    font-size: 0.56em;
+    letter-spacing: 0.02em;
+    color: var(--color-gold-light);
+    white-space: nowrap;
+}
 /* Vertrauenszeile direkt am Button: Preis, Ort, Zeiten */
 .hero-facts {
     margin-top: 0.8rem;
