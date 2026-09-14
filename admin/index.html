@@ -4,7 +4,65 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex">
+    <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png">
     <title>Redaktion – Anna Vietnam Thai Massage</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Best-effort Markenanpassung fuer die Decap-CMS-Oberflaeche.
+           Decap bietet dafuer offiziell nur "logo" (siehe config.yml) an;
+           alles Weitere hier zielt auf Klassen, die Decap selbst beim
+           Rendern vergibt (erkennbar am sprechenden Namensteil, z. B.
+           "LoginButton-button"). Der Hash-Teil davor aendert sich mit
+           jeder Decap-Version, der sprechende Teil bisher nicht - daher
+           per Teilstring-Selektor statt exaktem Klassennamen, und mit
+           !important, weil Decap seine eigenen Regeln laufend nachlaedt.
+           Faellt eine Version diese Namen weg, greifen einfach nur diese
+           paar Regeln nicht mehr - die Redaktion selbst bleibt nutzbar. */
+        :root {
+            --anna-bg: #052C20;
+            --anna-panel: #083A28;
+            --anna-gold: #D9B05F;
+            --anna-gold-light: #ebd091;
+            --anna-text: #f2ecdc;
+        }
+        html, body, #nc-root {
+            background: radial-gradient(circle at 25% 0%, #0A4530, var(--anna-bg) 70%) !important;
+            font-family: 'Inter', 'Segoe UI', Arial, sans-serif !important;
+        }
+        h1, h2, h3, [class*="AppHeader"] {
+            font-family: 'Cinzel', 'Palatino Linotype', serif !important;
+        }
+        /* Login-Formular */
+        input[class*="AuthInput"] {
+            background: rgba(3,26,18,0.55) !important;
+            border-color: rgba(217,176,95,0.4) !important;
+            color: var(--anna-text) !important;
+        }
+        input[class*="AuthInput"]::placeholder { color: rgba(242,236,220,0.55) !important; }
+        button[class*="LoginButton-button"],
+        button[class*="Button-button-primary"],
+        a[class*="Button-button-primary"] {
+            background: linear-gradient(90deg, var(--anna-gold-light), var(--anna-gold)) !important;
+            color: var(--anna-bg) !important;
+            font-weight: 700 !important;
+            border: none !important;
+        }
+        /* Kopfzeile und Seitenleiste der eigentlichen Redaktion */
+        [class*="AppHeader-header"], [class*="Sidebar"] {
+            background: var(--anna-panel) !important;
+            border-color: rgba(217,176,95,0.25) !important;
+        }
+        [class*="AppHeader"] a, [class*="Sidebar"] a,
+        [class*="AppHeader"] button, [class*="Sidebar"] button {
+            color: var(--anna-text) !important;
+        }
+        [class*="SidebarListItemLink"][aria-current="page"],
+        [class*="SidebarListItemLink"]:hover {
+            color: var(--anna-gold-light) !important;
+        }
+    </style>
 </head>
 <body>
     <!-- Decap CMS (frueher Netlify CMS): liest admin/config.yml, meldet sich
