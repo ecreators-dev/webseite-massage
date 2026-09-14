@@ -62,6 +62,33 @@
         [class*="SidebarListItemLink"]:hover {
             color: var(--anna-gold-light) !important;
         }
+        /* Werkzeugleiste ueber der Eintragsliste (Sortieren, Ansicht
+           Liste/Kacheln): stand vorher in einem fuer hellen Hintergrund
+           gedachten Grauton direkt auf unserem dunkelgruenen Hintergrund -
+           dunkelgrau auf dunkelgruen war kaum lesbar. */
+        [class*="CollectionTop"],
+        [class*="ViewControls"],
+        [class*="ViewStyleControl"],
+        [class*="SortControl"],
+        [class*="TopBarContainer"] {
+            color: var(--anna-text) !important;
+        }
+        [class*="CollectionTop"] svg,
+        [class*="ViewControls"] svg,
+        [class*="ViewStyleControl"] svg,
+        [class*="SortControl"] svg {
+            fill: var(--anna-text) !important;
+        }
+        [class*="ViewStyleControl"][class*="active"],
+        [class*="SortControl"]:hover,
+        [class*="ViewStyleControl"]:hover {
+            color: var(--anna-gold-light) !important;
+        }
+        [class*="ViewStyleControl"][class*="active"] svg,
+        [class*="SortControl"]:hover svg,
+        [class*="ViewStyleControl"]:hover svg {
+            fill: var(--anna-gold-light) !important;
+        }
     </style>
 </head>
 <body>
