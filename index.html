@@ -121,14 +121,14 @@
 }
     </script>
 </head>
-<body class="landing-page">
+<body class="landing-page" data-cms-page="home">
 
     <!-- ============ HERO (split background: left flat/textured surface, right person photo — both fade in on load) ============ -->
     <section class="hero">
         <div class="hero-bg-split" aria-hidden="true">
             <div class="hero-bg-left"></div>
             <div class="hero-bg-right">
-                <img src="images/hero/hero-massage.webp" alt="" width="1672" height="941">
+                <img src="images/hero/hero-massage.webp" alt="" width="1672" height="941" data-cms-src="heroImage">
             </div>
         </div>
         <div class="hero-bg-seam" aria-hidden="true"></div>
@@ -167,8 +167,8 @@
         </nav>
 
         <div class="hero-content fade-in">
-            <h1 class="hero-title">Ich bin Anna <span class="hero-title-sub">Ihre Masseurin in Heilbronn</span></h1>
-            <p class="hero-text">Ich habe in Vietnam massieren gelernt und nehme mir Zeit für Sie –
+            <h1 class="hero-title"><span data-cms="heroTitle">Ich bin Anna</span> <span class="hero-title-sub" data-cms="heroTitleSub">Ihre Masseurin in Heilbronn</span></h1>
+            <p class="hero-text" data-cms="heroText">Ich habe in Vietnam massieren gelernt und nehme mir Zeit für Sie –
                 mit viel Gefühl für Rücken, Nacken und Schultern.</p>
 
             <ul class="hero-features">
@@ -187,7 +187,7 @@
             </ul>
 
             <a href="termin-buchen.html" class="btn-book btn-green hero-cta">Termin online buchen <span aria-hidden="true">&rarr;</span></a>
-            <p class="hero-facts"><span class="fact">ab 30&nbsp;€</span> <span class="dot" aria-hidden="true">·</span> <span class="fact">Sichererstraße 90, Heilbronn</span> <span class="dot" aria-hidden="true">·</span> <span class="fact">Mo–Sa 10–20 Uhr</span></p>
+            <p class="hero-facts"><span class="fact" data-cms="factPrice">ab 30&nbsp;€</span> <span class="dot" aria-hidden="true">·</span> <span class="fact" data-cms="factAddress">Sichererstraße 90, Heilbronn</span> <span class="dot" aria-hidden="true">·</span> <span class="fact" data-cms="factHours">Mo–Sa 10–20 Uhr</span></p>
         </div>
 
         <!-- Buehne rechts (nur Desktop): Das Logo dreht sich um die senkrechte
@@ -215,50 +215,50 @@
             <p class="ticker-desc" aria-live="polite" hidden></p>
             <div class="ticker-viewport">
                 <ul class="ticker-track">
-                    <li class="ticker-card featured" data-title="Traditionelle Thai-Massage" data-desc="Ganzkörpermassage mit klassischen Druck- und Dehntechniken. Fördert die Energieflüsse im Körper und bringt Körper und Geist in Einklang – die Massage, die meine Gäste am häufigsten wählen.">
+                    <li class="ticker-card featured" data-cms-id="thai" data-title="Traditionelle Thai-Massage" data-desc="Ganzkörpermassage mit klassischen Druck- und Dehntechniken. Fördert die Energieflüsse im Körper und bringt Körper und Geist in Einklang – die Massage, die meine Gäste am häufigsten wählen.">
                         <span class="ticker-star" aria-hidden="true"><span></span></span>
                         <button type="button" class="ticker-hit" aria-expanded="false">
-                            <img src="images/leistungen/thumb/thai-massage.webp" alt="" width="360" height="270">
-                            <span class="ticker-title">Thai-Massage</span>
+                            <img src="images/leistungen/thumb/thai-massage.webp" alt="" width="360" height="270" data-cms-src="image" data-cms-scope="thai">
+                            <span class="ticker-title" data-cms="shortTitle" data-cms-scope="thai">Thai-Massage</span>
                             <span class="ticker-info">mehr Infos</span>
-                            <span class="ticker-price">60&nbsp;€</span>
-                            <span class="ticker-meta">60 Min.</span>
+                            <span class="ticker-price" data-cms="price" data-cms-scope="thai">60&nbsp;€</span>
+                            <span class="ticker-meta" data-cms="time" data-cms-scope="thai">60 Min.</span>
                         </button>
                     </li>
-                    <li class="ticker-card" data-title="Premium Wellness-Massage" data-desc="Meine umfassendste Behandlung: eine individuelle Kombination aus Thai-Massage und Aromaöl, ergänzt um ein erfrischendes Kopf-Spa mit Wasser – ein ganzheitliches Erlebnis für Körper, Geist und Seele.">
+                    <li class="ticker-card" data-cms-id="premium" data-title="Premium Wellness-Massage" data-desc="Meine umfassendste Behandlung: eine individuelle Kombination aus Thai-Massage und Aromaöl, ergänzt um ein erfrischendes Kopf-Spa mit Wasser – ein ganzheitliches Erlebnis für Körper, Geist und Seele.">
                         <button type="button" class="ticker-hit" aria-expanded="false">
-                            <img src="images/leistungen/thumb/premium-wellness.webp" alt="" width="360" height="270">
-                            <span class="ticker-title">Premium Wellness</span>
+                            <img src="images/leistungen/thumb/premium-wellness.webp" alt="" width="360" height="270" data-cms-src="image" data-cms-scope="premium">
+                            <span class="ticker-title" data-cms="shortTitle" data-cms-scope="premium">Premium Wellness</span>
                             <span class="ticker-info">mehr Infos</span>
-                            <span class="ticker-price">120&nbsp;€</span>
-                            <span class="ticker-meta">120 Min.</span>
+                            <span class="ticker-price" data-cms="price" data-cms-scope="premium">120&nbsp;€</span>
+                            <span class="ticker-meta" data-cms="time" data-cms-scope="premium">120 Min.</span>
                         </button>
                     </li>
-                    <li class="ticker-card" data-title="Kopf-, Nacken- &amp; Schultermassage" data-desc="Sanfte, gezielte Massage für Kopf, Nacken und Schultern – ideal für eine kurze Auszeit zwischendurch. Löst Verspannungen aus dem Alltag und bringt neue Energie für den restlichen Tag.">
+                    <li class="ticker-card" data-cms-id="kopf" data-title="Kopf-, Nacken- &amp; Schultermassage" data-desc="Sanfte, gezielte Massage für Kopf, Nacken und Schultern – ideal für eine kurze Auszeit zwischendurch. Löst Verspannungen aus dem Alltag und bringt neue Energie für den restlichen Tag.">
                         <button type="button" class="ticker-hit" aria-expanded="false">
-                            <img src="images/leistungen/thumb/kopf-nacken-schulter.webp" alt="" width="360" height="270">
-                            <span class="ticker-title">Kopf &amp; Nacken</span>
+                            <img src="images/leistungen/thumb/kopf-nacken-schulter.webp" alt="" width="360" height="270" data-cms-src="image" data-cms-scope="kopf">
+                            <span class="ticker-title" data-cms="shortTitle" data-cms-scope="kopf">Kopf &amp; Nacken</span>
                             <span class="ticker-info">mehr Infos</span>
-                            <span class="ticker-price">30&nbsp;€</span>
-                            <span class="ticker-meta">30 Min.</span>
+                            <span class="ticker-price" data-cms="price" data-cms-scope="kopf">30&nbsp;€</span>
+                            <span class="ticker-meta" data-cms="time" data-cms-scope="kopf">30 Min.</span>
                         </button>
                     </li>
-                    <li class="ticker-card" data-title="Rückenmassage" data-desc="Intensive Massage für Rücken, Nacken und Schultern. Löst tiefsitzende Blockaden aus langem Sitzen oder körperlicher Belastung und sorgt für spürbare Entlastung.">
+                    <li class="ticker-card" data-cms-id="ruecken" data-title="Rückenmassage" data-desc="Intensive Massage für Rücken, Nacken und Schultern. Löst tiefsitzende Blockaden aus langem Sitzen oder körperlicher Belastung und sorgt für spürbare Entlastung.">
                         <button type="button" class="ticker-hit" aria-expanded="false">
-                            <img src="images/leistungen/thumb/rueckenmassage.webp" alt="" width="360" height="270">
-                            <span class="ticker-title">Rückenmassage</span>
+                            <img src="images/leistungen/thumb/rueckenmassage.webp" alt="" width="360" height="270" data-cms-src="image" data-cms-scope="ruecken">
+                            <span class="ticker-title" data-cms="shortTitle" data-cms-scope="ruecken">Rückenmassage</span>
                             <span class="ticker-info">mehr Infos</span>
-                            <span class="ticker-price">45&nbsp;€</span>
-                            <span class="ticker-meta">45 Min.</span>
+                            <span class="ticker-price" data-cms="price" data-cms-scope="ruecken">45&nbsp;€</span>
+                            <span class="ticker-meta" data-cms="time" data-cms-scope="ruecken">45 Min.</span>
                         </button>
                     </li>
-                    <li class="ticker-card" data-title="Aromaöl-Massage" data-desc="Sanfte, fließende Ganzkörpermassage mit hochwertigen, natürlichen Ölen. Löst Spannungen, beruhigt den Geist und schenkt tiefe, langanhaltende Entspannung.">
+                    <li class="ticker-card" data-cms-id="aroma" data-title="Aromaöl-Massage" data-desc="Sanfte, fließende Ganzkörpermassage mit hochwertigen, natürlichen Ölen. Löst Spannungen, beruhigt den Geist und schenkt tiefe, langanhaltende Entspannung.">
                         <button type="button" class="ticker-hit" aria-expanded="false">
-                            <img src="images/leistungen/thumb/aromaoel-massage.webp" alt="" width="360" height="270">
-                            <span class="ticker-title">Aromaöl-Massage</span>
+                            <img src="images/leistungen/thumb/aromaoel-massage.webp" alt="" width="360" height="270" data-cms-src="image" data-cms-scope="aroma">
+                            <span class="ticker-title" data-cms="shortTitle" data-cms-scope="aroma">Aromaöl-Massage</span>
                             <span class="ticker-info">mehr Infos</span>
-                            <span class="ticker-price">80&nbsp;€</span>
-                            <span class="ticker-meta">90 Min.</span>
+                            <span class="ticker-price" data-cms="price" data-cms-scope="aroma">80&nbsp;€</span>
+                            <span class="ticker-meta" data-cms="time" data-cms-scope="aroma">90 Min.</span>
                         </button>
                     </li>
                 </ul>
@@ -278,5 +278,19 @@
     </section>
 
     <script src="js/main.js"></script>
+    <!-- Netlify Identity: faengt den Einladungs-/Anmeldelink ab (der zeigt
+         zuerst hierher) und leitet danach zur Redaktion weiter. -->
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <script>
+        if (window.netlifyIdentity) {
+            window.netlifyIdentity.on('init', (user) => {
+                if (!user) {
+                    window.netlifyIdentity.on('login', () => {
+                        document.location.href = '/admin/';
+                    });
+                }
+            });
+        }
+    </script>
 </body>
 </html>

@@ -1,5 +1,78 @@
-document.addEventListener('DOMContentLoaded', () => {
-    
+// --- Redaktionssystem: Inhalte aus content/<seite>.json einlesen ---
+// Laeuft VOR allem anderen im DOMContentLoaded-Handler (siehe unten, await),
+// damit z. B. der Ticker seine Karten schon mit aktuellem Inhalt klont.
+// Fehlt die Datei oder schlaegt das Laden fehl, bleiben die im HTML fest
+// eingetragenen Werte stehen - die Seite funktioniert also auch offline
+// oder ohne Redaktionssystem unveraendert.
+async function fetchJson(name) {
+    try {
+        const res = await fetch(`content/${name}.json`, { cache: 'no-store' });
+        if (!res.ok) return null;
+        return await res.json();
+    } catch (e) {
+        return null;
+    }
+}
+
+async function loadCmsContent() {
+    const page = document.body.dataset.cmsPage;
+    if (!page) return;
+
+    const data = await fetchJson(page);
+    if (!data) return;
+
+    // Massagen-Karten koennen auf jeder Seite vorkommen (z. B. der Ticker auf
+    // der Startseite) - deren Daten liegen aber immer in leistungen.json,
+    // unabhaengig davon, welche Seite gerade geladen wird. Ein Preis oder
+    // Foto muss also nur an einer Stelle gepflegt werden.
+    if (document.querySelector('[data-cms-scope]') && !Array.isArray(data.services)) {
+        const services = page === 'leistungen' ? null : await fetchJson('leistungen');
+        if (services && Array.isArray(services.services)) data.services = services.services;
+    }
+
+    const applyValue = (el, value) => {
+        if (el.hasAttribute('data-cms-src')) {
+            if (typeof value === 'string' && value) el.src = value;
+        } else if (typeof value === 'string') {
+            el.textContent = value;
+        }
+    };
+
+    // Einfache Felder: <... data-cms="feldname">
+    document.querySelectorAll('[data-cms]:not([data-cms-scope])').forEach((el) => {
+        const key = el.dataset.cms;
+        if (key in data) applyValue(el, data[key]);
+    });
+    document.querySelectorAll('[data-cms-src]:not([data-cms-scope])').forEach((el) => {
+        const key = el.dataset.cmsSrc;
+        if (key in data) applyValue(el, data[key]);
+    });
+
+    // Liste (z. B. Massagen): Elemente mit data-cms-scope="<id>" gehoeren zu
+    // dem Eintrag aus data.services, dessen id passt.
+    if (Array.isArray(data.services)) {
+        const byId = Object.fromEntries(data.services.map((s) => [s.id, s]));
+        document.querySelectorAll('[data-cms-scope]').forEach((el) => {
+            const item = byId[el.dataset.cmsScope];
+            if (!item) return;
+            const key = el.dataset.cms || el.dataset.cmsSrc;
+            if (key in item) applyValue(el, item[key]);
+        });
+        // Ticker-Popup auf der Startseite liest data-title/data-desc am <li>
+        // selbst (siehe Ticker-Skript weiter unten) - die haelt hier auf dem
+        // aktuellen Stand.
+        document.querySelectorAll('[data-cms-id]').forEach((el) => {
+            const item = byId[el.dataset.cmsId];
+            if (!item || !el.hasAttribute('data-title')) return;
+            if (item.title) el.setAttribute('data-title', item.title);
+            if (item.desc) el.setAttribute('data-desc', item.desc);
+        });
+    }
+}
+
+document.addEventListener('DOMContentLoaded', async () => {
+    await loadCmsContent();
+
     // --- Mobile Menu Toggle ---
     const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
     const navMobile = document.querySelector('.nav-mobile');
