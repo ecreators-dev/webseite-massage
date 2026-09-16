@@ -2,53 +2,63 @@
   "intro": "Ich stimme jede Behandlung auf Sie ab – von der kurzen Auszeit zwischendurch bis zur ausgedehnten Wellness-Reise. Ich arbeite allein, Sie werden also immer von mir persönlich massiert.",
   "services": [
     {
+      "id": "premium",
+      "featured": false,
+      "shortTitle": "Prem. Wellness-Mass.",
+      "title": "Premium Wellness-Massage",
+      "time": "120 Min.",
+      "price": "120 €",
+      "desc": "Gönnen Sie sich eine wohltuende Auszeit mit Rücken-, Ganzkörper- und Ölmassage, kombiniert mit Fußreflexzonen-, Kopf- und Gesichtsmassage. Lösen Sie Verspannungen, beleben Sie Ihre Sinne und tanken Sie neue Energie. Für ganzheitliche Entspannung und Wohlbefinden.",
+      "image": "images/leistungen/premium-wellness.webp"
+    },
+    {
       "id": "thai",
       "featured": true,
-      "shortTitle": "Thai-Massage",
-      "title": "Traditionelle Thai-Massage",
+      "shortTitle": "Ganzkörper-Massage",
+      "title": "Ganzkörper-Massage",
       "time": "60 Min.",
       "price": "60 €",
       "desc": "Ganzkörpermassage mit klassischen Druck- und Dehntechniken. Fördert die Energieflüsse im Körper und bringt Körper und Geist in Einklang – die Massage, die meine Gäste am häufigsten wählen.",
       "image": "images/leistungen/thai-massage.webp"
     },
     {
-      "id": "premium",
-      "featured": false,
-      "shortTitle": "Premium Wellness",
-      "title": "Premium Wellness-Massage",
-      "time": "120 Min.",
-      "price": "120 €",
-      "desc": "Meine umfassendste Behandlung: eine individuelle Kombination aus Thai-Massage und Aromaöl, ergänzt um ein erfrischendes Kopf-Spa mit Wasser – ein ganzheitliches Erlebnis für Körper, Geist und Seele.",
-      "image": "images/leistungen/premium-wellness.webp"
-    },
-    {
       "id": "kopf",
       "featured": false,
-      "shortTitle": "Kopf & Nacken",
-      "title": "Kopf-, Nacken- & Schultermassage",
+      "shortTitle": "Nacken- & Schulter",
+      "title": "Nacken- & Schultermassage",
       "time": "30 Min.",
       "price": "30 €",
-      "desc": "Sanfte, gezielte Massage für Kopf, Nacken und Schultern – ideal für eine kurze Auszeit zwischendurch. Löst Verspannungen aus dem Alltag und bringt neue Energie für den restlichen Tag.",
+      "desc": "Sanfte, gezielte Massage für Nacken und Schultern – ideal für eine kurze Auszeit zwischendurch. Löst Verspannungen aus dem Alltag und bringt neue Energie für den restlichen Tag.",
       "image": "images/leistungen/kopf-nacken-schulter.webp"
+    },
+    {
+      "featured": false,
+      "id": "fuss",
+      "title": "Fußmassage",
+      "shortTitle": "Fußmassage",
+      "time": "30",
+      "price": "32",
+      "desc": "Entspannung für müde Füße: Die Thai Fußmassage verbindet gezielten Druck mit wohltuenden Massagegriffen. Gönn dir eine kleine Auszeit, lockere deine Füße und genieße ein angenehm leichtes Gefühl.",
+      "image": "/images/uploads/chatgpt-image-16.-sept.-2026-18_16_26.png"
     },
     {
       "id": "ruecken",
       "featured": false,
-      "shortTitle": "Rückenmassage",
-      "title": "Rückenmassage",
+      "shortTitle": "Schulter, Nacken, Rücken",
+      "title": "Schultern-, Nacken-, & Rückenmassage",
       "time": "45 Min.",
       "price": "45 €",
-      "desc": "Intensive Massage für Rücken, Nacken und Schultern. Löst tiefsitzende Blockaden aus langem Sitzen oder körperlicher Belastung und sorgt für spürbare Entlastung.",
+      "desc": "Intensive Massage für Rücken-, Nacken und Schultern. Löst tiefsitzende Blockaden aus langem Sitzen oder körperlicher Belastung und sorgt für spürbare Entlastung.",
       "image": "images/leistungen/rueckenmassage.webp"
     },
     {
       "id": "aroma",
       "featured": false,
-      "shortTitle": "Aromaöl-Massage",
-      "title": "Aromaöl-Massage",
+      "shortTitle": "Ganzkörp. & Aromaöl",
+      "title": "Ganzkörper-Massage mit Aromaöl-Behandlung",
       "time": "90 Min.",
       "price": "80 €",
-      "desc": "Sanfte, fließende Ganzkörpermassage mit hochwertigen, natürlichen Ölen. Löst Spannungen, beruhigt den Geist und schenkt tiefe, langanhaltende Entspannung.",
+      "desc": "Ganzkörpermassage mit klassischen Druck- und Dehntechniken in Kombination mit wohltuendem Aromaöl. Fördert die Energieflüsse im Körper und bringt Körper und Geist in Einklang – für tiefe Entspannung, Wohlbefinden und neue Energie.",
       "image": "images/leistungen/aromaoel-massage.webp"
     }
   ]
