@@ -418,15 +418,19 @@ document.addEventListener('DOMContentLoaded', async () => {
             if (desktop.matches && !hovering) cycle();
         });
 
-        stage.addEventListener('mouseenter', async () => {
-            if (!desktop.matches || tickerOpen) return;
+        // Nur echte Maus: Auf Touch-Geraeten (z. B. Handy in der Desktop-
+        // Ansicht) feuert ein Antippen ein simuliertes mouseenter ohne
+        // mouseleave - dann bliebe die Drehung fuer immer stehen.
+        stage.addEventListener('pointerenter', async (e) => {
+            if (e.pointerType !== 'mouse' || !desktop.matches || tickerOpen) return;
             hovering = true;
             const id = ++run; clearTimeout(timer);
             const wasAnna = stage.classList.contains('is-anna');
             await showScene(true, id);
             if (id === run && (!wasAnna || slogan.dataset.complete !== '1')) type(id);
         });
-        stage.addEventListener('mouseleave', async () => {
+        stage.addEventListener('pointerleave', async (e) => {
+            if (e.pointerType !== 'mouse') return;
             if (!desktop.matches || tickerOpen) { hovering = false; return; }
             hovering = false;
             const id = ++run; clearTimeout(timer);
