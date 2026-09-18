@@ -12,3 +12,11 @@
 
 /*.html
   Cache-Control: no-cache
+
+# Texte und Bilder duerfen von anderen Seiten gelesen werden (z. B. fuer
+# Gutscheine). Es sind ohnehin oeffentliche Inhalte der Webseite.
+/content/*
+  Access-Control-Allow-Origin: *
+
+/images/*
+  Access-Control-Allow-Origin: *
