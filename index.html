@@ -2,6 +2,14 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
+    <script>
+        // Links aus den Konto-Mails (Passwort zuruecksetzen, E-Mail bestaetigen,
+        // Einladung) landen auf der Startseite. Die Redaktion unter /admin/
+        // verarbeitet sie - also dorthin weiterreichen.
+        if (/(recovery|email_change|invite|confirmation)_token=/.test(location.hash)) {
+            location.replace('/admin/' + location.hash);
+        }
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thai-Massage in Heilbronn | Anna Vietnam Thai Massage</title>
     <meta name="description" content="Traditionelle vietnamesische &amp; thailändische Massage in Heilbronn: Thai-, Aromaöl- und Kopf-Spa-Massagen ab 30 €. Jetzt online Termin buchen.">
