@@ -1,3 +1,7 @@
+/* Handy-Browser in der Desktop-Ansicht vergroessern Schrift sonst eigenmaechtig
+   (Font Boosting) - die Sprechblase wuerde hoeher und verrutscht. */
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+
 /*
 ========================================
    VARIABLES & DESIGN SYSTEM
@@ -995,6 +999,10 @@ body.inner-page:has(.booking-hero) { background: transparent; }
     flex: 1 1 auto;
     min-height: 0;
     width: 100%;
+    /* Hohe, schmale Fenster (Handy in Desktop-Ansicht hochkant): Buehne nicht
+       beliebig strecken, sonst passen Anna und Blase nicht mehr zusammen. */
+    max-height: calc(var(--side-w) * 1.5);
+    margin-top: auto;
     perspective: 1400px;
     opacity: 0;
     animation: stageIn 1.1s ease-out 0.55s forwards;
