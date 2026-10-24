@@ -448,3 +448,55 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
 });
+
+// --- Google-Bewertungen (nur auf der Seite "Ueber mich") ---
+// Die Daten holt eine Netlify-Funktion, damit der Google-Schluessel nicht im
+// Browser steht. Kommt nichts zurueck, bleibt der Bereich verborgen - die
+// Seite sieht dann aus wie vorher.
+document.addEventListener('DOMContentLoaded', async () => {
+    const box = document.getElementById('bewertungen');
+    if (!box) return;
+
+    let d;
+    try {
+        const res = await fetch('/.netlify/functions/bewertungen');
+        if (!res.ok) return;
+        d = await res.json();
+    } catch (e) {
+        return;
+    }
+    if (!d || !Array.isArray(d.reviews) || !d.reviews.length) return;
+
+    const sterne = (n) => '★'.repeat(Math.round(n)) + '☆'.repeat(5 - Math.round(n));
+
+    if (d.rating && d.anzahl) {
+        box.querySelector('.bewertungen-schnitt').textContent =
+            `${d.rating.toFixed(1)} von 5 Sternen · ${d.anzahl} Bewertungen bei Google`;
+    }
+
+    const liste = box.querySelector('.bewertungen-liste');
+    d.reviews.forEach((r) => {
+        const li = document.createElement('li');
+        li.className = 'bewertung';
+        const kopf = document.createElement('div');
+        kopf.className = 'bewertung-kopf';
+        const name = document.createElement('b');
+        // Nachname abkuerzen: "Sabine Kraus" -> "Sabine K."
+        name.textContent = r.name.replace(/\s+(\S)\S*$/, ' $1.');
+        const stern = document.createElement('span');
+        stern.className = 'bewertung-sterne';
+        stern.textContent = sterne(r.sterne);
+        stern.setAttribute('aria-label', `${r.sterne} von 5 Sternen`);
+        const wann = document.createElement('small');
+        wann.textContent = r.wann;
+        kopf.append(name, stern, wann);
+        const text = document.createElement('p');
+        text.textContent = r.text;
+        li.append(kopf, text);
+        liste.appendChild(li);
+    });
+
+    const link = box.querySelector('.bewertungen-link');
+    if (d.url) link.href = d.url; else link.remove();
+    box.hidden = false;
+});
