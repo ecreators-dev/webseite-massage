@@ -1961,6 +1961,10 @@ body.inner-page:has(.booking-hero) { background: transparent; }
     .about-lotus { width: clamp(38px, 6vh, 60px); margin-bottom: 0.2rem; }
     .about-page .legal-title { font-size: clamp(1.5rem, 4vh, 2.2rem); margin: 0 0 clamp(0.4rem, 1.6vh, 1.5rem); }
     .about-grid { flex: 1 1 auto; min-height: 0; }
+    /* Mit den Google-Bewertungen ist die Textspalte laenger als der Bildschirm.
+       Sie bekommt deshalb eine eigene Bildlaufleiste - sonst schiebt sie die
+       Fusszeile aus dem Fenster und legt sich ueber das Foto. */
+    .about-text { align-self: stretch; min-height: 0; max-height: 100%; overflow-y: auto; padding-right: 0.6rem; }
     .about-photo img { max-height: calc(100dvh - 12rem); }
     /* Niedrige Fenster (z. B. 1024x600): Lotus weg, Abstaende enger */
     @media (max-height: 680px) {
