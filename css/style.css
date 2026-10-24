@@ -1871,6 +1871,8 @@ body.inner-page:has(.booking-hero) { background: transparent; }
         /* Karten nie kleiner als ihr Inhalt: Die Beschreibung bleibt
            vollstaendig; reicht die Hoehe nicht, scrollt nur die Liste. */
         grid-auto-rows: minmax(min-content, 1fr);
+        overflow-y: auto;
+        padding-right: 0.4rem;
         gap: clamp(0.7rem, 2vh, 1.6rem);
         margin-bottom: clamp(0.3rem, 1vh, 0.8rem);
     }
