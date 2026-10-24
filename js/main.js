@@ -499,4 +499,27 @@ document.addEventListener('DOMContentLoaded', async () => {
     const link = box.querySelector('.bewertungen-link');
     if (d.url) link.href = d.url; else link.remove();
     box.hidden = false;
+    // Seite ist jetzt hoeher: Ein-Bildschirm-Layout neu pruefen lassen.
+    window.dispatchEvent(new Event('resize'));
 });
+
+// --- Unterseiten: Ein-Bildschirm-Layout nur, wenn alles hineinpasst ---
+// Sonst wuerde Inhalt abgeschnitten oder in einer inneren Bildlaufleiste
+// verschwinden. Dann lieber die Seite normal scrollen lassen (siehe CSS
+// .fit-off). Neu pruefen bei Groessenaenderung und wenn z. B. die
+// Bewertungen nachgeladen wurden.
+(() => {
+    const main = document.querySelector('body.inner-page > main.page-wrap');
+    if (!main) return;
+    const check = () => {
+        document.body.classList.remove('fit-off');
+        const zuHoch = [main, ...main.querySelectorAll('.leistungen-list, .about-grid')]
+            .some((el) => el.scrollHeight > el.clientHeight + 2);
+        document.body.classList.toggle('fit-off', zuHoch);
+    };
+    window.addEventListener('load', check);
+    window.addEventListener('resize', check);
+    // Inhalt beobachten, nicht nur den Rahmen: Bewertungen kommen spaeter.
+    const ro = new ResizeObserver(check);
+    [main, ...main.querySelectorAll('.leistungen-list, .about-text')].forEach((el) => ro.observe(el));
+})();
