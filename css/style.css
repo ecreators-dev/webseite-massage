@@ -1871,14 +1871,14 @@ body.inner-page:has(.booking-hero) { background: transparent; }
         /* Karten nie kleiner als ihr Inhalt: Die Beschreibung bleibt
            vollstaendig; reicht die Hoehe nicht, scrollt nur die Liste. */
         grid-auto-rows: minmax(min-content, 1fr);
-        gap: clamp(0.7rem, 2vh, 1.6rem);
+        gap: clamp(0.6rem, 1.4vh, 1.4rem);
         margin-bottom: clamp(0.3rem, 1vh, 0.8rem);
     }
     .leistung-card {
         min-height: 0;
         padding: clamp(0.65rem, 1.7vh, 1.6rem);
         /* feste Kopfzeile fuer Dauer und Preis ueber dem Titel */
-        padding-top: clamp(3rem, 7vh, 4.5rem);
+        padding-top: clamp(2.6rem, 5.2vh, 4rem);
     }
     .leistung-card { justify-content: flex-end; }
     .leistung-time { top: clamp(0.5rem, 1.4vh, 0.9rem); }
@@ -1895,8 +1895,8 @@ body.inner-page:has(.booking-hero) { background: transparent; }
     .leistung-price { font-size: clamp(0.95rem, 2.2vh, 1.2rem); }
     .leistung-card p {
         flex: 0 0 auto;
-        font-size: clamp(0.78rem, 1.7vh, 0.95rem);
-        line-height: 1.5;
+        font-size: clamp(0.76rem, 1.62vh, 0.95rem);
+        line-height: 1.42;
     }
     .leistung-card .btn-book { margin-top: clamp(0.35rem, 1.1vh, 0.8rem); min-height: clamp(34px, 4.4vh, 40px); }
     .leistungen-disclaimer { flex: 0 0 auto; margin: 0 0 0.2rem; }
@@ -2058,3 +2058,11 @@ body.inner-page:has(.booking-hero) { background: transparent; }
 .bewertung-kopf small { opacity: 0.7; }
 .bewertung p { margin: 0; }
 .bewertungen-link { color: var(--color-gold); }
+
+/* Passt der Inhalt einer Unterseite am Desktop nicht auf einen Bildschirm
+   (z. B. viele Bewertungen, sehr niedriges Fenster), wird das Ein-Bildschirm-
+   Layout aufgehoben und die Seite scrollt ganz normal - nie ein abgeschnittener
+   Inhalt und nie eine Bildlaufleiste mitten in der Seite. js/main.js setzt
+   die Klasse. */
+body.inner-page.fit-off { height: auto; overflow: visible; }
+body.inner-page.fit-off > main.page-wrap { overflow: visible; }
