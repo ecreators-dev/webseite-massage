@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# Aenderungsdatum: 2026-11-07
+# Pre-Commit-Hook. Aktivierung einmalig je Klon: git config core.hooksPath .githooks
+# (dieses Projekt hat kein npm - Befehl einmal nach dem Klonen ausfuehren).
+# Weitere Pruefungen hier untereinander ergaenzen, nicht ersetzen.
+
+bash scripts/security-quick-check.sh || exit 1
