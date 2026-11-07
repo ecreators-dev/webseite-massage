@@ -11,7 +11,16 @@
 // Grenze der Places API: hoechstens 5 Bewertungen, von Google ausgewaehlt,
 // und ohne Annas Antworten - die gibt es dort schlicht nicht.
 
-export default async () => {
+// Pro Besucher-IP hoechstens 20 Aufrufe je Minute - schuetzt das Google-Kontingent.
+export const config = {
+  rateLimit: { windowLimit: 20, windowSize: 60, aggregateBy: ['ip', 'domain'] }
+};
+
+export default async (req) => {
+  // Die Seite ruft ohne Query auf. Jede Query waere sonst ein eigener Cache-
+  // Eintrag und damit ein bezahlter Google-Aufruf.
+  if (new URL(req.url).search) return Response.json({ reviews: [] }, { status: 400 });
+
   const key = Netlify.env.get('GOOGLE_MAPS_API_KEY');
   const place = Netlify.env.get('GOOGLE_PLACE_ID');
   if (!key || !place) return Response.json({ reviews: [] }, { status: 200 });

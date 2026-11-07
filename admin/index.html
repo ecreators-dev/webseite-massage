@@ -95,6 +95,12 @@
     <!-- Decap CMS (frueher Netlify CMS): liest admin/config.yml, meldet sich
          ueber Netlify Identity + Git Gateway an und schreibt Aenderungen als
          Commit direkt ins Repository. -->
-    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+    <!-- Feste Version mit Pruefsumme (SRI): Diese Seite haelt die Anmeldung mit
+         Schreibzugriff aufs Repository, darum darf sich der Code nicht
+         unbemerkt aendern. Update: Version erhoehen und den Hash neu berechnen
+         (Datei aus dem npm-Paket, Abgleich mit der dist.integrity der Registry). -->
+    <script src="https://unpkg.com/decap-cms@3.17.3/dist/decap-cms.js"
+            integrity="sha384-RWRzuHfiZSWCt3nEvG7B0v3cMgM1C2UuJmgBSL92GQh4uXmNSkbcthql/mNBqvjr"
+            crossorigin="anonymous"></script>
 </body>
 </html>
